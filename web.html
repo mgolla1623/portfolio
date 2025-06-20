@@ -376,6 +376,13 @@
             color: white;
             font-size: 3rem;
         }
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
 
         .project-content {
             padding: 1.5rem;
@@ -693,19 +700,21 @@
                     learning from experienced professionals in the field.
                 </p>
                 <div class="skills">
-                    <span class="skill-tag">JavaScript</span>
                     <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">JavaScript</span>
                     <span class="skill-tag">React</span>
                     <span class="skill-tag">Node.js</span>
                     <span class="skill-tag">Git</span>
                     <span class="skill-tag">SQL</span>
                     <span class="skill-tag">HTML/CSS</span>
-                    <span class="skill-tag">Java</span>
+                    
                 </div>
             </div>
             <div class="about-image">
                 <div style="width: 300px; height: 300px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-color), #8b5cf6); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">
-                    👨‍💻
+                    <img src="images/portfolio3.jpg" alt="me">
+
                 </div>
             </div>
         </div>
@@ -792,92 +801,136 @@
                     
                 </p>
             </div>
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <h3 class="experience-title">Engineering Intern</h3>
+                        <p class="experience-company">Drones iVue</p>
+                    </div>
+                    <span class="experience-date">Jan 2021 - June 2021</span>
+                </div>
+                <p class="experience-description">
+                    
+                </p>
+            </div>
         </div>
     </section>
 
     <!-- Projects Section -->
+    <!-- Projects I have done...
+     1. Machine Learning cortical activity project
+     2. Bits of good bog analytics project
+     3. CS 2340 Project 
+     4. Hands on Learning- HackGT project
+     5. TechEats
+     6. Georgial Lottery
+     7. Flight database system?? 
+
+    -->
     <section class="section" id="projects">
         <h2 class="section-title fade-in">Projects</h2>
         <div class="projects-grid fade-in">
             <div class="project-card">
-                <div class="project-image">🌐</div>
+                <div class="project-image"> <img src="images/corticalPic.png"></div>
                 <div class="project-content">
-                    <h3 class="project-title">Full-Stack Web App</h3>
+                    <h3 class="project-title">Cortical N1 Activity vs Muscle Activity </h3>
                     <p class="project-description">
-                        A comprehensive web application built with React and Node.js, featuring user authentication, 
-                        real-time data updates, and responsive design.
+                        Developed machine learning models to analyze and predict muscle activity from cortical N1 EEG signals, enabling insights into balance control mechanisms in aging and Parkinson’s patients.
                     </p>
                     <div class="project-tech">
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">MongoDB</span>
-                        <span class="tech-tag">Express</span>
+                        <span class="tech-tag">Jupyter Notebook</span>
+                        <span class="tech-tag">Matplotlib</span>
+                        <span class="tech-tag">Pandase</span>
+                        <span class="tech-tag">Numpy</span>
+                        <span class="tech-tag">Seaborn</span>
+                        <span class="tech-tag">sklearn</span>
+                        <span class="tech-tag">tensorflow</span>
+                        <span class="tech-tag">cca zoo</span>
                     </div>
                     <div class="project-links">
-                        <a href="#" class="project-link">Live Demo</a>
-                        <a href="#" class="project-link">GitHub</a>
+                        <a href="https://nawal-r2002.github.io/Cortical_Activity_Study/" class="project-link">Documentation</a>
+                        <a href="https://github.com/nawal-r2002/Cortical_Activity_Study/tree/main" class="project-link">GitHub</a>
                     </div>
                 </div>
             </div>
 
             <div class="project-card">
-                <div class="project-image">📱</div>
+                <div class="project-image"><img src ="images/aslPic.png"></div>
                 <div class="project-content">
-                    <h3 class="project-title">Mobile App</h3>
+                    <h3 class="project-title">Hands on Learning</h3>
                     <p class="project-description">
-                        A cross-platform mobile application that helps users track their daily habits and goals 
-                        with intuitive UI and data visualization.
+                        Built a real-time American Sign Language recognition system using YOLOv5 and OpenCV, creating a custom dataset and applying computer vision techniques for gesture detection and classification.
                     </p>
                     <div class="project-tech">
-                        <span class="tech-tag">React Native</span>
-                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">YOLOv5</span>
+                        <span class="tech-tag">OpenCV</span>
+                        <span class="tech-tag">PyTorch</span>
+                        <span class="tech-tag">LabelImg</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://docs.google.com/presentation/d/e/2PACX-1vS58IS79fTiORIay4KqcAoarbTCj0G2uVeMso4i90J9XpTrW6zbYhg1Bug3Waai-bFWPQuu7SsgDuAR/pub?start=false&loop=false&delayms=3000" class="project-link">Demo</a>
+                        <a href="https://github.com/pennonshue/HackGt23" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image"><img src ="images/BogDashboard.png"></div>
+                <div class="project-content">
+                    <h3 class="project-title">Bits of Good: Analytics Dashboard</h3>
+                    <p class="project-description">
+                       Designed and built an internal analytics dashboard to track project progress, visibility, and team metrics across Bits of Good chapters using Docker and JavaScript-based data tools.
+                    </p>
+                    <div class="project-tech">
                         <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">Next.js</span>
+                        <span class="tech-tag">Streamlit</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">MongoDB</span>
                     </div>
                     <div class="project-links">
-                        <a href="#" class="project-link">Demo Video</a>
-                        <a href="#" class="project-link">GitHub</a>
+                        <a href="https://portal.analytics.bitsofgood.org/" class="project-link">Project Link</a>
+                        <a href="https://github.com/GTBitsOfGood/bog-analytics?tab=readme-ov-file" class="project-link">GitHub</a>
                     </div>
                 </div>
             </div>
 
             <div class="project-card">
-                <div class="project-image">🤖</div>
+                <div class="project-image"><img src="images/techEats.png"></div>
                 <div class="project-content">
-                    <h3 class="project-title">AI Chat Bot</h3>
+                    <h3 class="project-title">TechEats</h3>
                     <p class="project-description">
-                        An intelligent chatbot using natural language processing to provide customer support 
-                        and answer frequently asked questions.
+                        Redesigned Georgia Tech's food ordering app with a focus on intuitive UI and seamless user flow for Georgia Tech dining services.
+                        Designed a responsive food ordering web application enabling users to browse menus, place orders, and track delivery status, with a focus on intuitive UI and seamless user flow for Georgia Tech dining services.
                     </p>
                     <div class="project-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">TensorFlow</span>
-                        <span class="tech-tag">Flask</span>
-                        <span class="tech-tag">NLP</span>
+                        <span class="tech-tag">Figma</span>
+                        
                     </div>
                     <div class="project-links">
-                        <a href="#" class="project-link">Try It</a>
-                        <span class="project-link">GitHub</a>
+                        <a href="https://www.figma.com/proto/A8ChIPanMnbvL1KPXN3ozO/Case-Study---Manasa---Winnie--Copy-?node-id=2322-156&t=0KlEXsLf9sgUSvv0-1&starting-point-node-id=2322%3A1556" class="project-link">Demo</a>
+                        <a href="https://www.figma.com/proto/A8ChIPanMnbvL1KPXN3ozO/Case-Study?node-id=923-71&p=f&t=X4DvVF6azxHM3lvQ-1&scaling=contain&content-scaling=fixed&page-id=1%3A5&starting-point-node-id=923%3A71" class="project-link">Presentation</a>
+                        
                     </div>
                 </div>
             </div>
 
             <div class="project-card">
-                <div class="project-image">📊</div>
+                <div class="project-image"><img src ="images/dungeonCrawler.png"></div>
                 <div class="project-content">
-                    <h3 class="project-title">Data Visualization Tool</h3>
+                    <h3 class="project-title">Dungeon Crawler</h3>
                     <p class="project-description">
-                        Interactive dashboard for analyzing and visualizing large datasets with multiple chart types 
-                        and filtering options.
+                       Designed and built an internal analytics dashboard to track project progress, visibility, and team metrics across Bits of Good chapters using Docker and JavaScript-based data tools.
                     </p>
                     <div class="project-tech">
-                        <span class="tech-tag">D3.js</span>
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">Pandas</span>
-                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Java</span>
+                        <span class="tech-tag">Android Studio</span>
                     </div>
                     <div class="project-links">
-                        <a href="#" class="project-link">View Demo</a>
-                        <a href="#" class="project-link">GitHub</a>
+                        <a href="https://xadestar.wixsite.com/cs2340---dungeon-cra" class="project-link">Demo</a>
+                        <a href="https://github.com/JVKdouk/CS2340B_Team31" class="project-link">GitHub</a>
                     </div>
                 </div>
             </div>
