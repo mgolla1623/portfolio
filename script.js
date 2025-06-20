@@ -1,11 +1,4 @@
-function toggleMenu() {
-    /* will add/remove open class */
-    const menu = document.querySelector(".menu-links");
-    const icon = document.querySelector(".hamburger-icon");
-    menu.classList.toggle("open")
-    icon.classList.toggle("open")
 
-}
 
 
 //TO DO
@@ -18,6 +11,9 @@ function toggleMenu() {
     - Food: Link my beli AND my instagram food account
     - Reads: how can i develop a fun bookshelf find of page
 4. Need to add links to different things (linked in, email, github, etc)
-    4
+5. i want to change fonts/themes to make it more personal and more like me
+6. for the personal section, there is a weird gap in betwen the sections!!
+
+
 
 */

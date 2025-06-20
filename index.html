@@ -174,6 +174,27 @@
             flex-wrap: wrap;
         }
 
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .hero-social-link img {
+            width: 32px;
+            height: 32px;
+            filter: grayscale(0.3);
+            transition: filter 0.2s, transform 0.2s;
+            vertical-align: middle;
+        }
+
+        .hero-social-link:hover img {
+            filter: grayscale(0) drop-shadow(0 2px 8px var(--accent-color));
+            transform: translateY(-3px) scale(1.1);
+        }
         .btn {
             padding: 0.875rem 2rem;
             border-radius: 8px;
@@ -270,13 +291,22 @@
             align-items: center;
         }
 
+        .about-image > div {
+            width: 580px;
+            height: 580px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+
         .about-image img {
-            width: 300px;
-            height: 300px;
-            
+            width: 175%;
+            height: 175%;
             object-fit: cover;
             border: 4px solid var(--border-color);
-            
+            display: block;
         }
 
 
@@ -294,6 +324,11 @@
             border-radius: 25px;
             font-size: 0.9rem;
             border: 1px solid var(--border-color);
+        }
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
         }
 
         /* Experience Section */
@@ -696,15 +731,28 @@
             <p class="hero-greeting"></p>
             <h1 class="hero-name">Hi, I'm Manasa!</h1>
             <h2 class="hero-title">CS @ Georgia Tech </h2>
-            <p class="hero-description">
+            <!--<p class="hero-description">
                 Passionate about creating innovative solutions and exploring the intersection of technology and creativity. 
                 Currently pursuing my degree while building projects that make a difference.
-            </p>
+            </p>-->
             <div class="hero-cta">
-                <a href="#projects" class="btn btn-primary">View My Work</a>
-                <a href="#about" class="btn btn-secondary">Learn More</a>
+                <!--<a href="#about" class="btn btn-secondary">Learn More</a>-->
+                <a href="mailto:manasagolla716@gmail.com" class="hero-social-link" title="Email" target="_blank" rel="noopener">
+                    <img src="images/square-envelope-solid.svg" alt="Email" />
+                </a>
+                <a href="https://github.com/mgolla1623" class="hero-social-link" title="GitHub" target="_blank" rel="noopener">
+                    <img src="images/square-github-brands.svg" alt="GitHub" />
+                </a>
+                <a href="https://linkedin.com/in/manasagolla16" class="hero-social-link" title="LinkedIn" target="_blank" rel="noopener">
+                    <img src="images/linkedin-brands.svg" alt="LinkedIn" />
+                    
+                </a>
             </div>
         </div>
+
+
+
+        
     </section>
 
     <!-- About Section -->
@@ -712,29 +760,39 @@
         <h2 class="section-title fade-in">About Me</h2>
         <div class="about-content fade-in">
             <div class="about-text">
+
                 <p>
                     I'm a Computer Science student with a love for problem-solving and creating 
                     innovative digital solutions. I hold a deep appreciation for the power technology has
-                    to make a positive impact on the world.
-                </p>
-                <p>
-                    Outside of school and work, I love spending time outdoors—whether that’s hiking, going on walks, or exploring new parks and farmers markets. 
+                    to make a positive impact on the world. Outside of school and work, I love spending time outdoors—whether that’s hiking, going on walks, or exploring new parks and farmers markets. 
                     I’m always on the lookout for unique foods to try, and love to bake and cook. I also work at a yoga studio, which has been a great way to stay 
-                    grounded while being surrounded by an awesome community. Lately, I’ve also been getting back into reading and really enjoying it.
-
+                    grounded while being surrounded by an awesome community. I’ve also been getting back into reading and really enjoying it.
                 </p>
+                
+                <!-- Education Box -->
+                <div class="education-box">
+                    <strong>Education</strong>
+                    <div>Georgia Institute of Technology</div>
+                    <div>B.S. in Computer Science</div>
+                    <div>2022 – 2026</div>
+                </div>
   
                 <div class="skills">
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">Java</span>
-                    <span class="skill-tag">JavaScript</span>
-                    <span class="skill-tag">React</span>
-                    <span class="skill-tag">Node.js</span>
-                    <span class="skill-tag">Git</span>
-                    <span class="skill-tag">SQL</span>
-                    <span class="skill-tag">HTML/CSS</span>
-                    
+                    <div class="skills-title"><strong>Skills</strong></div>
+                    <div class="skills-list">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">HTML/CSS</span>
+                    </div>
                 </div>
+
+
+               
             </div>
             <div class="about-image">
                 <div style="width: 300px; height: 300px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-color), #8b5cf6); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">
@@ -995,7 +1053,6 @@
 
 
     <!-- Personal Section -->
-
     <section class="section" id="personal">
     <h2 class="section-title fade-in">Personal</h2>
     <div class="personal-grid fade-in">
