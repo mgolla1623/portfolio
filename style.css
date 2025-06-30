@@ -1,3 +1,6 @@
+/* ===================================
+   CSS CUSTOM PROPERTIES (VARIABLES)
+   =================================== */
 :root {
   --primary-color: #00796b;
   --secondary-color: #b2dfdb;
@@ -10,6 +13,9 @@
   --text-light: #ffffff;
 }
 
+/* ===================================
+   GLOBAL STYLES & RESET
+   =================================== */
 * {
   margin: 0;
   padding: 0;
@@ -28,8 +34,52 @@ body {
   /*padding: 2rem;*/ /*come back*/
 }
 
-/* Navigation */
+/* =============================
+   GLOBAL CONTENT PADDING
+   ============================= */
+.hero,
+.section,
+.about-wrapper {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
 
+@media (max-width: 768px) {
+  .hero,
+  .section,
+  .about-wrapper {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero,
+  .section,
+  .about-wrapper {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+/* Remove/override any zero paddings on these containers */
+.hero {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.section {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+.about-wrapper {
+  /* Remove zero paddings if present */
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* ===================================
+   NAVIGATION STYLES
+   =================================== */
 .nav {
   position: fixed;
   top: 0;
@@ -93,6 +143,7 @@ body {
   width: 100%;
 }
 
+/* Mobile Navigation Toggle */
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -109,63 +160,58 @@ body {
   transition: 0.3s;
 }
 
-/* .hero {
-  width: 100%;
-  max-width: 1248px;
-  height: 523px;
-  margin: 0 auto;
-  padding-left: 32px;
-  padding-right: 32px;
-  position: relative;
-  overflow: hidden;
-  justify-content: flex-start;
-  align-items: center;
-  display: flex;
-  background: var(--background-color);
-}
- */
+/* ===================================
+   HERO SECTION STYLES
+   =================================== */
 .hero {
   min-height: 100vh;
-
-  padding-left: 32px;
-  padding-right: 32px;
   max-width: 1000px;
-
   margin: 0 auto;
-  padding: 0 2rem;
-
-  position: relative;
-  overflow: hidden;
-  justify-content: flex-start;
-  align-items: center;
+  padding: 0 2rem; /* Add horizontal padding for desktop */
   display: flex;
+  align-items: center;
   background: var(--background-color);
 }
 
-
-
 .hero-content {
-  width: 624px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  overflow: hidden;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 40px;
   display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 3rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-text-container {
-  width: 624px;
-  height: 209px;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 20px;
+  flex: 1 1 0;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-width: 0;
+  max-width: 520px;
+  padding: 0 1rem;
 }
 
+.hero-image-container {
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  max-width: 600px;
+  padding: 0 1rem;
+}
+
+.hero-photo {
+  width: 500px;
+  height: 500px;
+  object-fit: contain;
+  background: #fff;
+  /* border-radius: 0; */
+}
+
+/* Hero Text Content */
 .hero-text-content {
   align-self: stretch;
   flex-direction: column;
@@ -216,7 +262,7 @@ body {
   word-wrap: break-word;
 }
 
-/* NEW: Buttons matching your design specifications */
+/* Hero Social Buttons */
 .hero-buttons {
   padding-top: 20px;
   padding-bottom: 0px;
@@ -244,6 +290,7 @@ body {
   border-color: var(--accent-colot);
   box-shadow: 0 8px 25px rgba(0, 121, 107, 0.15);
 }
+
 .hero-social-link img {
   width: 40px;
   height: 40px;
@@ -260,6 +307,10 @@ body {
   display: none;
 }
 
+/* ===================================
+   SHARED COMPONENTS
+   =================================== */
+/* Button Styles */
 .btn {
   padding: 0.875rem 2rem;
   border-radius: 8px;
@@ -271,215 +322,9 @@ body {
   font-size: 1rem;
 }
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  .nav-links {
-    position: fixed;
-    top: 70px;
-    left: -100%;
-    width: 100%;
-    height: calc(100vh - 70px);
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding-top: 2rem;
-    transition: left 0.3s ease;
-  }
-
-  .nav-links.active {
-    left: 0;
-  }
-
-  .nav-toggle {
-    display: flex;
-  }
-
-  .nav-toggle.active span:nth-child(1) {
-    transform: rotate(-45deg) translate(-5px, 5px);
-  }
-
-  .nav-toggle.active span:nth-child(2) {
-    opacity: 0;
-  }
-
-  .nav-toggle.active span:nth-child(3) {
-    transform: rotate(45deg) translate(-5px, -6px);
-  }
-
-  .hero-buttons {
-    position: static;
-    padding-top: 4px;
-
-    gap: 10px;
-  }
-
-  .hero-social-link {
-    width: 37px;
-    height: 37px;
-    padding: 10px;
-
-    background: white;
-  }
-
-  .hero-social-link img {
-    width: 37px;
-    height: 37px;
-  }
-
-  .hero-social-link:hover {
-    transform: translateY(-2px);
-  }
-
-  .hero {
-    height: 100vh;
-    min-height: 600px;
-    padding: 16px;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: stretch;
-  }
-
-  .hero-image-placeholder {
-    display: flex;
-    flex: 1;
-    min-height: 342px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    justify-content: center;
-    align-items: center;
-    background: #f8f9fa;
-    border: 2px dashed #dee2e6;
-    border-radius: 8px;
-    margin-bottom: 48px;
-    color: #6c757d;
-    font-size: 14px;
-    text-align: center;
-  }
-
-  .hero-content {
-    width: 100%;
-    max-width: 100%;
-    padding: 0;
-    gap: 32px;
-    flex-shrink: 0;
-  }
-
-  .hero-text-container {
-    width: 100%;
-    height: auto;
-    gap: 12px;
-  }
-
-  .hero-greeting,
-  .hero-name,
-  .hero-title {
-    font-size: 28px;
-    line-height: 36px;
-  }
-
-  @media (max-width: 480px) {
-    .nav-container {
-      padding: 0 1rem;
-    }
-
-    .hero {
-      padding: 12px;
-      min-height: 500px;
-    }
-
-    .hero-image-placeholder {
-      min-height: 250px;
-      margin-bottom: 32px;
-    }
-
-    .hero-greeting,
-    .hero-name,
-    .hero-title {
-      font-size: 24px;
-      line-height: 28px;
-    }
-
-    .hero-buttons {
-      gap: 16px;
-    }
-
-    .hero-social-link {
-      width: 44px;
-      height: 44px;
-    }
-  }
-
-
-
-
-  .about-content {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .about-image {
-    order: -1;
-  }
-
-  .experience-timeline {
-    padding-left: 1rem;
-  }
-
-  .experience-timeline::before {
-    left: 8px;
-  }
-
-  .experience-item::before {
-    left: -1.25rem;
-  }
-
-  .experience-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-cta {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .btn {
-    width: 100%;
-    max-width: 300px;
-  }
-
-  .social-links {
-    gap: 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .nav-container {
-    padding: 0 1rem;
-  }
-
-  .section {
-    padding: 3rem 1rem;
-  }
-
-  .hero {
-    padding: 0 1rem;
-  }
-
-  .section-title {
-    font-size: 2rem;
-  }
-}
-
-/* Sections */
+/* Section Styles */
 .section {
-  padding: 5rem 2rem;
+  padding: 5rem 2rem 5rem 2rem; /* Add horizontal padding for desktop */
   max-width: 1000px;
   margin: 0 auto;
 }
@@ -505,35 +350,31 @@ body {
   background: var(--accent-color);
 }
 
+.section-centered {
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  display: flex;
+}
 
-
-
+/* ===================================
+   ABOUT SECTION STYLES
+   =================================== */
 .about-wrapper {
-  background: #F7FBFE;
-  padding: 60px 80px;
+  /*background: #F7FBFE;*/
+  padding: 0 2rem; /* Add horizontal padding for desktop */
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: 3rem;
   flex-wrap: wrap;
 }
 
-.about-image-container {
-  flex: 1;
-  min-width: 300px;
-  max-width: 480px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.about-photo {
-  width: 100%;
-  max-width: 472px;
-  height: auto;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 4px solid var(--border-color);
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: flex-start;
 }
 
 .about-text-container {
@@ -543,6 +384,16 @@ body {
   gap: 20px;
   font-family: Sora, sans-serif;
   max-width: 650px;
+}
+
+.about-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.about-text p {
+  margin-bottom: 1.5rem;
 }
 
 .about-heading {
@@ -570,36 +421,26 @@ body {
   color: black;
 }
 
-.skills {
+/* About Image Styles */
+.about-image-container {
+  flex: 1.5;
+  min-width: 300px;
+  max-width: 480px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 20px;
 }
 
-
-
-
-
-
-
-/* About Section */
- .about-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: flex-start;
+.about-photo {
+  width: 100%;
+  max-width: 472px;
+  height: auto;
+  object-fit: auto;
+  border-radius: 12px;
+  border: 4px solid var(--border-color);
 }
-
-.about-text {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: var(--text-secondary);
-}
-
-.about-text p {
-  margin-bottom: 1.5rem;
-}
-
 
 .about-image {
   display: flex;
@@ -625,6 +466,13 @@ body {
   display: block;
 }
 
+/* Skills Styles */
+.skills {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .skills {
   display: flex;
   flex-wrap: wrap;
@@ -645,12 +493,15 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
-} 
+}
 
-/* Experience Section */
-
+/* ===================================
+   EXPERIENCE SECTION STYLES
+   =================================== */
 .experience-timeline {
   position: relative;
+  padding-top: 2rem;
+  padding-bottom:2rem;
   padding-left: 2rem;
 }
 
@@ -666,7 +517,7 @@ body {
 
 .experience-item {
   position: relative;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   background: var(--surface-color);
   padding: 2rem;
   border-radius: 12px;
@@ -723,6 +574,27 @@ body {
   padding-top: 1rem;
 }
 
+.experience-description ul {
+  list-style: none;
+  padding: 0;
+}
+
+.experience-description li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.experience-description li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+/* Experience Dropdown Arrow */
 .dropdown-arrow {
   position: absolute;
   right: 0;
@@ -744,60 +616,16 @@ body {
   overflow: hidden;
   transition: max-height 0.3s ease;
 }
+
 .experience-item.expanded .experience-content {
   max-height: 200px; /* Adjust based on your content */
 }
 
-.experience-description ul {
-  list-style: none;
-  padding: 0;
-}
-
-.experience-description li {
-  position: relative;
-  padding-left: 1.5rem;
-  margin-bottom: 0.5rem;
-  color: var(--text-secondary);
-}
-
-.experience-description li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: var(--accent-color);
-  font-weight: bold;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .experience-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .experience-date {
-    margin-top: 0.5rem;
-  }
-
-  .dropdown-arrow {
-    top: 1rem;
-    right: 1rem;
-  }
-}
-
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s ease;
-}
-
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Projects Section */
+/* ===================================
+   PROJECTS SECTION STYLES
+   =================================== */
 .projects-grid {
+  padding-top: 2rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 2rem;
@@ -885,66 +713,94 @@ body {
   color: #2563eb;
 }
 
-/* Personal Section */
+/* ===================================
+   PERSONAL SECTION STYLES
+   =================================== */
 .personal-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* Always 3 in a row on desktop */
   gap: 2rem;
+  padding-top: 2rem;
+  justify-items: center;
 }
 
-.personal-card {
-  background: var(--surface-color);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: all 0.3s ease;
+.personal-card.personal-card-imageonly {
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  transition: none;
+  padding: 0;
 }
 
-.personal-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-}
-
-.personal-image {
-  height: 200px;
-  background: linear-gradient(135deg, #f59e0b, #f97316);
+.personal-image.personal-image-label {
+  position: relative;
+  width: 100%;
+  height: 260px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  color: white;
-  font-size: 2rem;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  border-radius: 18px;
+  overflow: hidden;
 }
 
-.personal-image img {
+.personal-image.personal-image-label img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 18px;
+  filter: brightness(0.85);
+  transition: filter 0.2s;
 }
 
-.personal-content {
-  padding: 1.5rem;
+.personal-image.personal-image-label:hover img {
+  filter: brightness(1);
 }
 
-.personal-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: var(--primary-color);
+.personal-title-overlay {
+  position: absolute;
+  top: 18px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 2rem;
+  font-family: 'Sora', sans-serif;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  z-index: 2;
+  pointer-events: none;
 }
 
-.personal-description {
-  color: var(--text-secondary);
-  line-height: 1.6;
+.personal-content, .personal-description {
+  display: none !important;
 }
 
-.personal-link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
+@media (max-width: 900px) {
+  .personal-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .personal-grid {
+    grid-template-columns: 1fr;
+  }
+  .personal-image.personal-image-label {
+    height: 180px;
+  }
+  .personal-title-overlay {
+    font-size: 1.3rem;
+    top: 10px;
+  }
 }
 
-/* Footer */
+/* ===================================
+   FOOTER STYLES
+   =================================== */
 .footer {
   background: var(--surface-color);
   border-top: 1px solid var(--border-color);
@@ -980,17 +836,29 @@ body {
   font-size: 0.9rem;
 }
 
-/* Animations */
+/* ===================================
+   ANIMATIONS & TRANSITIONS
+   =================================== */
 @keyframes fadeInUp {
   from {
     opacity: 0;
     transform: translateY(30px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .fade-in {
@@ -1003,3 +871,268 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+
+
+
+/* ===================================
+   MOBILE HERO SECTION UPDATES
+   Replace your existing mobile styles with these
+   =================================== */
+
+/* Tablet and Small Desktop (768px and below) */
+@media (max-width: 768px) {
+  /* Navigation Mobile Styles (keep existing) */
+  .nav-links {
+    position: fixed;
+    top: 60px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 60px);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 2rem;
+    transition: left 0.3s ease;
+  }
+
+  .nav-links.active {
+    left: 0;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-toggle.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 5px);
+  }
+
+  .nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+  }
+
+  /* HERO MOBILE LAYOUT - TOP/BOTTOM SPLIT */
+  .hero {
+    min-height: 100vh;
+    padding: 80px 1rem 20px 1rem; /* Reduce horizontal padding for tablet */
+    display: flex;
+    align-items: stretch;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 0;
+    justify-content: space-between; /* Distribute space evenly */
+    align-items: center;
+  }
+
+  /* IMAGE CONTAINER - TOP HALF */
+  .hero-image-container {
+    flex: 1;
+    order: 1; /* Ensure image comes first */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: none;
+    padding: 20px 0;
+    min-height: 45vh; /* Take up roughly half the screen */
+  }
+
+  .hero-photo {
+    width: min(550px, 80vw); /* Responsive but not too large */
+    height: min(550px, 80vw);
+    object-fit: contain;
+    background: #fff;
+    /* border-radius: 0; */
+  }
+
+  /* TEXT CONTAINER - BOTTOM HALF */
+  .hero-text-container {
+    flex: 1;
+    order: 2; /* Ensure text comes second */
+    width: 100%;
+    max-width: none;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 35vh; /* Take up remaining space */
+  }
+
+  .hero-text-content {
+    width: 100%;
+    text-align: center; /* Center text on mobile */
+    gap: 12px;
+  }
+
+  .hero-greeting-line,
+  .hero-title-line {
+    justify-content: center; /* Center the text lines */
+    flex-wrap: wrap; /* Allow wrapping if needed */
+  }
+
+  .hero-greeting, 
+  .hero-name, 
+  .hero-title {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+    margin-top: 16px;
+    gap: 20px;
+  }
+
+  .hero-social-link {
+    width: 44px;
+    height: 44px;
+  }
+
+  .hero-social-link img {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Keep existing styles for other sections */
+  .about-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .about-image {
+    order: -1;
+  }
+
+  .experience-timeline {
+    padding-left: 1rem;
+  }
+
+  .experience-timeline::before {
+    left: 8px;
+  }
+
+  .experience-item::before {
+    left: -1.25rem;
+  }
+
+  .experience-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .experience-date {
+    margin-top: 0.5rem;
+  }
+
+  .dropdown-arrow {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .social-links {
+    gap: 1.5rem;
+  }
+}
+
+/* Mobile Phones (480px and below) */
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 0 1rem;
+  }
+
+  .hero {
+    padding: 70px 0.75rem 16px 0.75rem; /* Even smaller horizontal padding for mobile */
+  }
+
+  .hero-image-container {
+    min-height: 40vh;
+    padding: 16px 0;
+  }
+
+  .hero-text-container {
+    min-height: 40vh;
+    padding: 16px 0;
+  }
+
+  .hero-photo {
+    width: min(450px, 75vw);
+    height: min(450px, 75vw);
+  }
+
+  .hero-greeting,
+  .hero-name,
+  .hero-title {
+    font-size: 28px;
+    line-height: 34px;
+  }
+
+  .hero-buttons {
+    gap: 16px;
+    margin-top: 12px;
+  }
+
+  .hero-social-link {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hero-social-link img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .section {
+    padding: 3rem 0.75rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .hero-greeting,
+  .hero-name,
+  .hero-title {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .hero-photo {
+    width: min(440px, 70vw);
+    height: min(440px, 70vw);
+  }
+}
+
+#personal.section {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+

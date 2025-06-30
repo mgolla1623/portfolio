@@ -1,165 +1,104 @@
-        // Wait for DOM to fully load
-        document.addEventListener('DOMContentLoaded', () => {
-            // Your existing JavaScript code here...
-            const navbar = document.getElementById('navbar');
-            const navToggle = document.getElementById('nav-toggle');
-            const navLinks = document.getElementById('nav-links');
-            const navLinksItems = document.querySelectorAll('.nav-link');
-            const sections = document.querySelectorAll('section');
-            const fadeEls = document.querySelectorAll('.fade-in');
-
-            // Experience dropdown functionality
-            const experienceItems = document.querySelectorAll('.experience-item');
-            
-            experienceItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    // Toggle the expanded class
-                    this.classList.toggle('expanded');
-                });
-            });
-
-            // Mobile menu toggle (if navbar exists)
-            if (navToggle) {
-                navToggle.addEventListener('click', () => {
-                    navToggle.classList.toggle('active');
-                    navLinks.classList.toggle('active');
-                });
-            }
-
-            // Close mobile menu when clicking a nav link (if nav links exist)
-            if (navLinksItems.length > 0) {
-                navLinksItems.forEach(link => {
-                    link.addEventListener('click', () => {
-                        if (navToggle) navToggle.classList.remove('active');
-                        if (navLinks) navLinks.classList.remove('active');
-                    });
-                });
-            }
-
-            // Navbar scroll effect (if navbar exists)
-            if (navbar) {
-                window.addEventListener('scroll', () => {
-                    if (window.scrollY > 50) {
-                        navbar.classList.add('scrolled');
-                    } else {
-                        navbar.classList.remove('scrolled');
-                    }
-                });
-            }
-
-            // Active nav link tracking (if nav links exist)
-            if (navLinksItems.length > 0 && sections.length > 0) {
-                window.addEventListener('scroll', () => {
-                    let current = '';
-                    sections.forEach(section => {
-                        const sectionTop = section.offsetTop - 100;
-                        const sectionHeight = section.offsetHeight;
-                        if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
-                            current = section.getAttribute('id');
-                        }
-                    });
-
-                    navLinksItems.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${current}`) {
-                            link.classList.add('active');
-                        }
-                    });
-                });
-            }
-
-            // Fade-in scroll animation
-            function handleFadeIn() {
-                fadeEls.forEach(el => {
-                    const rect = el.getBoundingClientRect();
-                    if (rect.top < window.innerHeight - 100) {
-                        el.classList.add('visible');
-                    }
-                });
-            }
-
-            // Use `requestAnimationFrame` for smoothness
-            let ticking = false;
-            window.addEventListener('scroll', () => {
-                if (!ticking) {
-                    window.requestAnimationFrame(() => {
-                        handleFadeIn();
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            });
-
-            // Trigger once on load
-            handleFadeIn();
-        });
-/* 
-    // Wait for DOM to fully load
-    document.addEventListener('DOMContentLoaded', () => {
+// Wait for DOM to fully load
+document.addEventListener('DOMContentLoaded', () => {
+    // Your existing JavaScript code here...
     const navbar = document.getElementById('navbar');
     const navToggle = document.getElementById('nav-toggle');
     const navLinks = document.getElementById('nav-links');
     const navLinksItems = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('section');
     const fadeEls = document.querySelectorAll('.fade-in');
+
+    // Experience dropdown functionality
     const experienceItems = document.querySelectorAll('.experience-item');
-
-
+    
     experienceItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    // Toggle the expanded class
-                    this.classList.toggle('expanded');
-                });
-            });
-    // Mobile menu toggle
-    navToggle.addEventListener('click', () => {
-        navToggle.classList.toggle('active');
-        navLinks.classList.toggle('active');
-    });
-
-    // Close mobile menu when clicking a nav link
-    navLinksItems.forEach(link => {
-        link.addEventListener('click', () => {
-        navToggle.classList.remove('active');
-        navLinks.classList.remove('active');
+        item.addEventListener('click', function() {
+            // Toggle the expanded class
+            this.classList.toggle('expanded');
         });
     });
 
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-        } else {
-        navbar.classList.remove('scrolled');
-        }
-    });
-
-    // Active nav link tracking
-    window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
-        const sectionHeight = section.offsetHeight;
-        if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
-            current = section.getAttribute('id');
-        }
+    // Mobile menu toggle (if navbar exists)
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
         });
+    }
 
+    // Close mobile menu when clicking a nav link (if nav links exist)
+    if (navLinksItems.length > 0) {
         navLinksItems.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-            link.classList.add('active');
-        }
+            link.addEventListener('click', () => {
+                if (navToggle) navToggle.classList.remove('active');
+                if (navLinks) navLinks.classList.remove('active');
+            });
         });
-    });
+    }
+
+    // Navbar scroll effect (if navbar exists)
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    }
+
+    // FIXED: Active nav link tracking
+    if (navLinksItems.length > 0 && sections.length > 0) {
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const scrollPos = window.pageYOffset + 150; // Increased offset for better detection
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                // Check if we're within this section
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    current = sectionId;
+                }
+            });
+
+            // Handle the case when we're at the very bottom of the page
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) {
+                const lastSection = sections[sections.length - 1];
+                current = lastSection.getAttribute('id');
+            }
+
+            // Update active states
+            navLinksItems.forEach(link => {
+                link.classList.remove('active');
+                const href = link.getAttribute('href');
+                if (href === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Fallback: if no section is detected, keep home active
+            if (!current) {
+                const homeLink = document.querySelector('a[href="#home"]');
+                if (homeLink) {
+                    homeLink.classList.add('active');
+                }
+            }
+        });
+
+        // Trigger once on load to set initial state
+        window.dispatchEvent(new Event('scroll'));
+    }
 
     // Fade-in scroll animation
     function handleFadeIn() {
         fadeEls.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100) {
-            el.classList.add('visible');
-        }
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 100) {
+                el.classList.add('visible');
+            }
         });
     }
 
@@ -167,25 +106,17 @@
     let ticking = false;
     window.addEventListener('scroll', () => {
         if (!ticking) {
-        window.requestAnimationFrame(() => {
-            handleFadeIn();
-            ticking = false;
-        });
-        ticking = true;
+            window.requestAnimationFrame(() => {
+                handleFadeIn();
+                ticking = false;
+            });
+            ticking = true;
         }
     });
 
     // Trigger once on load
     handleFadeIn();
-    });
-
-
-
-
-
-
- */
-
+});
 
 
 
@@ -207,7 +138,6 @@ Ideas:
 experience - make it so it's intuitive to click on each one and when it's clicked ,THEN the bullet point sshow up+ the extra infromation!!  
 i  also want a space to add the logo for the images!!
 
-FIGURE OUT how to put te buttends (email, github,linkedin) in van gar where it is clean and makes sense
 
 i kind of what to list projects a bit differentely as well. like more CLEAN and miminal. 
 similar to experience section where if u click on the square, it will expand the block into what it currently looks like. (immage+title -click-> image+tite+descriptions+techlinks)
