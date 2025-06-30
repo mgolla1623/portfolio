@@ -499,24 +499,18 @@ body {
    EXPERIENCE SECTION STYLES
    =================================== */
 .experience-timeline {
-  position: relative;
+  position: static;
   padding-top: 2rem;
-  padding-bottom:2rem;
-  padding-left: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 0;
 }
 
 .experience-timeline::before {
-  content: "";
-  position: absolute;
-  left: 15px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--border-color);
+  display: none;
 }
 
 .experience-item {
-  position: relative;
+  position: static;
   margin-bottom: 2rem;
   background: var(--surface-color);
   padding: 2rem;
@@ -532,40 +526,7 @@ body {
 }
 
 .experience-item::before {
-  content: "";
-  position: absolute;
-  left: -2.5rem;
-  top: 2rem;
-  width: 12px;
-  height: 12px;
-  background: var(--accent-color);
-  border-radius: 50%;
-  border: 3px solid var(--background-color);
-}
-
-.experience-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-  position: relative;
-}
-
-.experience-title {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--primary-color);
-}
-
-.experience-company {
-  color: var(--accent-color);
-  font-weight: 500;
-  margin-top: 0.25rem;
-}
-
-.experience-date {
-  color: var(--text-light);
-  font-size: 0.9rem;
+  display: none;
 }
 
 .experience-description {
@@ -580,18 +541,14 @@ body {
 }
 
 .experience-description li {
-  position: relative;
-  padding-left: 1.5rem;
+  position: static;
+  padding-left: 0;
   margin-bottom: 0.5rem;
   color: var(--text-secondary);
 }
 
 .experience-description li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: var(--accent-color);
-  font-weight: bold;
+  display: none;
 }
 
 /* Experience Dropdown Arrow */
@@ -621,39 +578,112 @@ body {
   max-height: 200px; /* Adjust based on your content */
 }
 
+.experience-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.experience-date {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+@media (max-width: 600px) {
+  .experience-date {
+    font-size: 0.95rem;
+    margin-top: 0.15rem;
+  }
+}
+
 /* ===================================
    PROJECTS SECTION STYLES
    =================================== */
 .projects-grid {
   padding-top: 2rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .project-card {
-  background: var(--surface-color);
+  background: var(--background-color);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: box-shadow 0.2s, transform 0.15s, border-color 0.2s;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 121, 107, 0.06);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 180px;
+}
+
+.project-card .project-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s;
+  padding: 0 1rem;
+}
+
+.project-card.expanded .project-content {
+  max-height: 500px;
+  padding: 1.1rem 1rem 1rem 1rem;
+}
+
+.project-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1rem 0.5rem 1rem;
+  position: relative;
+}
+
+.project-title {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #111;
+  font-family: 'Sora', sans-serif;
+  letter-spacing: 0.2px;
+  margin: 0.7rem 1rem 0.2rem 1rem;
+  text-align: left;
+}
+
+.project-links {
+  display: flex;
+  gap: 0.7rem;
+  margin: 0.2rem 1rem 0.7rem 1rem;
+  align-items: center;
+}
+
+.project-dropdown-arrow {
+  margin-left: auto;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  transition: transform 0.3s;
   cursor: pointer;
 }
 
-.project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  border-color: var(--accent-color);
+.project-card.expanded .project-dropdown-arrow {
+  transform: rotate(180deg);
 }
 
 .project-image {
-  height: 200px;
-  background: linear-gradient(135deg, var(--accent-color), #8b5cf6);
+  height: 180px;
+  background: linear-gradient(135deg, var(--accent-color), #8b5cf6 80%);
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 3rem;
+  font-size: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
 }
 
 .project-image img {
@@ -661,56 +691,74 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 0 0 10px 10px;
+  box-shadow: none;
 }
 
-.project-content {
-  padding: 1.5rem;
+.project-links {
+  display: flex;
+  gap: 0.7rem;
+  margin: 0.2rem 1rem 0.7rem 1rem;
+  align-items: center;
 }
 
-.project-title {
-  font-size: 1.3rem;
+.project-link {
+  color: #111;
+  text-decoration: none;
   font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: var(--primary-color);
+  font-size: 0.93rem;
+  transition: color 0.2s, text-decoration 0.2s;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+}
+
+.project-link:hover {
+  color: var(--accent-color);
+  border-bottom: 1px solid var(--accent-color);
+  text-decoration: none;
 }
 
 .project-description {
   color: var(--text-secondary);
-  margin-bottom: 1rem;
-  line-height: 1.6;
+  margin-bottom: 0.7rem;
+  line-height: 1.5;
+  font-size: 0.98rem;
 }
 
 .project-tech {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: 0.4rem;
+  margin-bottom: 0.7rem;
 }
 
 .tech-tag {
-  background: var(--background-color);
-  color: var(--text-primary);
-  padding: 0.25rem 0.75rem;
-  border-radius: 15px;
-  font-size: 0.8rem;
+  background: var(--surface-color);
+  color: var(--primary-color);
+  padding: 0.22rem 0.7rem;
+  border-radius: 12px;
+  font-size: 0.78rem;
   border: 1px solid var(--border-color);
-}
-
-.project-links {
-  display: flex;
-  gap: 1rem;
-}
-
-.project-link {
-  color: var(--accent-color);
-  text-decoration: none;
   font-weight: 500;
-  font-size: 0.9rem;
-  transition: color 0.3s ease;
+  letter-spacing: 0.1px;
+  box-shadow: none;
 }
 
-.project-link:hover {
-  color: #2563eb;
+@media (max-width: 900px) {
+  .project-image {
+    height: 140px;
+  }
+}
+@media (max-width: 600px) {
+  .project-image {
+    height: 110px;
+  }
+  .project-card {
+    border-radius: 8px;
+  }
+  .project-header {
+    padding: 0.7rem 0.7rem 0.4rem 0.7rem;
+  }
 }
 
 /* ===================================
