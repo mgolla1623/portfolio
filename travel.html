@@ -1,7 +1,3 @@
-<h2 class="section-title fade-in">Coming soon!</h2>
-
-
-
 <!-- BrainsTORMing
 - minimalistic as well
 - have a map of places i have been to already higlighted
@@ -15,7 +11,732 @@
 - a tab form my favorite experiences
 - layout inspo kind of: https://360902.lightfolio.com/gallery/danse-des-fleurs/
 - where the main image would be the interactive world map with all the countries 
+
+
+
+- i want the map to be seperate. make map as a full container either under the number boxes or aboce it!! 
+- then underneath have the filters
  
 
+EXAMPLE STACEKD LAYOUT:
+1. Title: My Travles
+2. Heading: Exploring the world....
+3. Interactive Map with the diffrent places highoightes 
+4. Boxes with stats: # of countries, # of cities... I DO NOT WANT # OF PHOTOES OR #MILES
+5. Photo Gallery (all the photos! there will be a filter for favorite places. when clicked on favoritep places only those photos will pop up)
 
--->>
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel - Manasa Golla</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px 40px;
+        }
+
+        /* Header Section */
+        .travel-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .travel-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .travel-title .light {
+            font-weight: 300;
+        }
+
+        .travel-title .bold {
+            font-weight: 800;
+        }
+
+        .travel-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Interactive Map Section - Full Width */
+        .map-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .map-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #333;
+            text-align: center;
+        }
+
+        .world-map {
+            width: 100%;
+            height: 400px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500"><rect width="1000" height="500" fill="%23f8f9fa"/><g fill="%23e0e0e0" stroke="%23ffffff" stroke-width="1"><path d="M150 100 L250 80 L280 120 L200 140 Z"/><path d="M300 90 L400 85 L420 130 L320 135 Z"/><path d="M450 95 L550 90 L570 140 L470 145 Z"/><path d="M100 200 L200 180 L230 220 L130 240 Z"/><path d="M250 190 L350 185 L370 235 L270 240 Z"/><path d="M400 195 L500 190 L520 240 L420 245 Z"/><path d="M550 200 L650 195 L670 245 L570 250 Z"/><path d="M200 300 L300 280 L330 320 L230 340 Z"/><path d="M350 290 L450 285 L470 335 L370 340 Z"/><path d="M500 295 L600 290 L620 340 L520 345 Z"/></g></svg>');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .location-pin {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #333;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            border: 3px solid #fff;
+        }
+
+        .location-pin:hover {
+            transform: scale(1.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .location-pin.visited {
+            background: #4caf50;
+        }
+
+        .location-pin.favorite {
+            background: #ff9800;
+        }
+
+        .location-pin.bucket-list {
+            background: #9c27b0;
+        }
+
+        /* Pin tooltip */
+        .pin-tooltip {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .pin-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: #333;
+        }
+
+        .location-pin:hover .pin-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Legend */
+        .map-legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .legend-dot.visited { background: #4caf50; }
+        .legend-dot.favorite { background: #ff9800; }
+        .legend-dot.bucket-list { background: #9c27b0; }
+
+        /* Stats Section */
+        .travel-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-number {
+            font-family: 'Sora', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Photo Gallery Section */
+        .gallery-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .gallery-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Filter buttons */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 24px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            background: #fff;
+            color: #666;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .filter-btn:hover {
+            border-color: #333;
+            color: #333;
+        }
+
+        .filter-btn.active {
+            background: #333;
+            color: #fff;
+            border-color: #333;
+        }
+
+        /* Current filter info */
+        .current-filter-info {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 30px;
+            color: #666;
+            font-size: 0.95rem;
+            border-left: 4px solid #333;
+            text-align: center;
+        }
+
+        /* Photo grid */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .photo-item {
+            aspect-ratio: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .photo-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .photo-item:hover .photo-overlay {
+            opacity: 1;
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            font-weight: 300;
+            transition: opacity 0.3s ease;
+        }
+
+        .close-modal:hover {
+            opacity: 0.7;
+        }
+
+        /* Back to portfolio link */
+        .back-link {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            z-index: 100;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #333;
+        }
+
+        .back-link::before {
+            content: "← ";
+            margin-right: 5px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 15px;
+            }
+            
+            .travel-title {
+                font-size: 2.5rem;
+            }
+            
+            .map-section,
+            .gallery-section {
+                padding: 25px 20px;
+            }
+            
+            .world-map {
+                height: 300px;
+            }
+            
+            .travel-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .stat-card {
+                padding: 30px 20px;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .photo-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 15px;
+            }
+            
+            .filter-buttons {
+                gap: 8px;
+            }
+            
+            .filter-btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .map-legend {
+                gap: 15px;
+            }
+
+            .legend-item {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .travel-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">Back to Portfolio</a>
+
+    <div class="container">
+        <!-- 1. Title -->
+        <div class="travel-header">
+            <h1 class="travel-title">
+                <span class="light">My</span>
+                <span class="bold">Travels</span>
+            </h1>
+            <!-- 2. Heading -->
+            <p class="travel-subtitle">
+                Exploring the world, one adventure at a time. Here's a collection of places I've been, 
+                memories I've made, and destinations still on my bucket list.
+            </p>
+        </div>
+
+        <!-- 3. Interactive Map -->
+        <div class="map-section">
+            <h2 class="map-title">Places I've Explored</h2>
+            <div class="world-map">
+                <div class="map-container" id="map-container">
+                    <!-- Pins will be added by JavaScript -->
+                </div>
+            </div>
+            <div class="map-legend">
+                <div class="legend-item">
+                    <div class="legend-dot visited"></div>
+                    <span>Visited</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot favorite"></div>
+                    <span>Favorites</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot bucket-list"></div>
+                    <span>Bucket List</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Stats Boxes (without photos/miles) -->
+        <div class="travel-stats">
+            <div class="stat-card">
+                <div class="stat-number">20</div>
+                <div class="stat-label">Countries Visited</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">32</div>
+                <div class="stat-label">Cities Explored</div>
+            </div>
+        </div>
+
+        <!-- 5. Photo Gallery -->
+        <div class="gallery-section">
+            <h2 class="gallery-title">Photo Gallery</h2>
+            
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Places</button>
+                <button class="filter-btn" data-filter="visited">Visited</button>
+                <button class="filter-btn" data-filter="favorite">Favorite Places</button>
+                <button class="filter-btn" data-filter="bucket-list">Bucket List</button>
+            </div>
+
+            <div id="current-filter-info" class="current-filter-info" style="display: none;"></div>
+            
+            <div class="photo-grid" id="photo-grid">
+                <!-- Photos populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Photo Modal -->
+    <div class="modal" id="photo-modal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <img id="modal-image" src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        // Sample photo data
+        const photoData = [
+            { id: 1, location: 'Paris, France', type: 'visited', src: 'https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400&h=400&fit=crop' },
+            { id: 2, location: 'Tokyo, Japan', type: 'favorite', src: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=400&fit=crop' },
+            { id: 3, location: 'New York, USA', type: 'visited', src: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=400&h=400&fit=crop' },
+            { id: 4, location: 'Santorini, Greece', type: 'favorite', src: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&h=400&fit=crop' },
+            { id: 5, location: 'London, UK', type: 'visited', src: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=400&h=400&fit=crop' },
+            { id: 6, location: 'Barcelona, Spain', type: 'visited', src: 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=400&h=400&fit=crop' },
+            { id: 7, location: 'Rome, Italy', type: 'favorite', src: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=400&h=400&fit=crop' },
+            { id: 8, location: 'Dubai, UAE', type: 'visited', src: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&h=400&fit=crop' },
+            { id: 9, location: 'Sydney, Australia', type: 'favorite', src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop' },
+            { id: 10, location: 'Bangkok, Thailand', type: 'visited', src: 'https://images.unsplash.com/photo-1563492065-927ae1c5c2be?w=400&h=400&fit=crop' },
+            { id: 11, location: 'Reykjavik, Iceland', type: 'bucket-list', src: 'https://images.unsplash.com/photo-1539035104074-dee66086b2ed?w=400&h=400&fit=crop' },
+            { id: 12, location: 'Machu Picchu, Peru', type: 'bucket-list', src: 'https://images.unsplash.com/photo-1526392060635-9d6019884377?w=400&h=400&fit=crop' }
+        ];
+
+        let currentFilter = 'all';
+        let currentLocation = null;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            setupMap();
+            displayPhotos();
+            setupFilters();
+        });
+
+        function setupMap() {
+            const mapContainer = document.getElementById('map-container');
+            mapContainer.innerHTML = '';
+            
+            // Add location pins (sample positions)
+            const locations = [
+                { name: 'Paris, France', x: 25, y: 30, type: 'visited' },
+                { name: 'Tokyo, Japan', x: 75, y: 35, type: 'favorite' },
+                { name: 'New York, USA', x: 15, y: 40, type: 'visited' },
+                { name: 'Santorini, Greece', x: 35, y: 45, type: 'favorite' },
+                { name: 'London, UK', x: 20, y: 28, type: 'visited' },
+                { name: 'Barcelona, Spain', x: 22, y: 42, type: 'visited' },
+                { name: 'Rome, Italy', x: 30, y: 50, type: 'favorite' },
+                { name: 'Dubai, UAE', x: 50, y: 55, type: 'visited' },
+                { name: 'Sydney, Australia', x: 85, y: 75, type: 'favorite' },
+                { name: 'Bangkok, Thailand', x: 68, y: 58, type: 'visited' },
+                { name: 'Reykjavik, Iceland', x: 18, y: 18, type: 'bucket-list' },
+                { name: 'Machu Picchu, Peru', x: 8, y: 70, type: 'bucket-list' }
+            ];
+
+            locations.forEach(location => {
+                const pin = document.createElement('div');
+                pin.className = `location-pin ${location.type}`;
+                pin.style.left = `${location.x}%`;
+                pin.style.top = `${location.y}%`;
+                
+                const tooltip = document.createElement('div');
+                tooltip.className = 'pin-tooltip';
+                tooltip.textContent = location.name;
+                pin.appendChild(tooltip);
+                
+                pin.addEventListener('click', () => filterByLocation(location.name));
+                mapContainer.appendChild(pin);
+            });
+        }
+
+        function setupFilters() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    currentLocation = null;
+                    updateFilterInfo();
+                    displayPhotos();
+                });
+            });
+        }
+
+        function displayPhotos() {
+            const photoGrid = document.getElementById('photo-grid');
+            photoGrid.innerHTML = '';
+
+            let filteredPhotos = photoData;
+
+            // Filter by type
+            if (currentFilter !== 'all') {
+                filteredPhotos = filteredPhotos.filter(photo => photo.type === currentFilter);
+            }
+
+            // Filter by location
+            if (currentLocation) {
+                filteredPhotos = filteredPhotos.filter(photo => photo.location === currentLocation);
+            }
+
+            filteredPhotos.forEach(photo => {
+                const photoItem = document.createElement('div');
+                photoItem.className = 'photo-item';
+                photoItem.innerHTML = `
+                    <img src="${photo.src}" alt="${photo.location}" loading="lazy">
+                    <div class="photo-overlay">
+                        <div>${photo.location}</div>
+                    </div>
+                `;
+                photoItem.addEventListener('click', () => openModal(photo.src));
+                photoGrid.appendChild(photoItem);
+            });
+
+            if (filteredPhotos.length === 0) {
+                photoGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: #999; padding: 40px; font-size: 1.1rem;">No photos found for this selection</div>';
+            }
+        }
+
+        function filterByLocation(location) {
+            currentLocation = location;
+            currentFilter = 'all';
+            
+            // Reset filter buttons
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+            
+            updateFilterInfo();
+            displayPhotos();
+        }
+
+        function updateFilterInfo() {
+            const filterInfo = document.getElementById('current-filter-info');
+            if (currentLocation) {
+                filterInfo.textContent = `Showing photos from: ${currentLocation}`;
+                filterInfo.style.display = 'block';
+            } else {
+                filterInfo.style.display = 'none';
+            }
+        }
+
+        function openModal(imageSrc) {
+            document.getElementById('modal-image').src = imageSrc;
+            document.getElementById('photo-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('photo-modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('photo-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
