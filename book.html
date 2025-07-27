@@ -1,1 +1,844 @@
-<h2 class="section-title fade-in">Coming soon!</h2>
+<!-- BrainsTORMing
+ This will be a page of diferent books and articles and podcasts i enjoy. maybe also movies and songs but will figure that part out later
+ I really want to make it look like a bookshelf as much as i can for the books at least
+ im still visually playting with how i want to do this.
+
+ trying to make a design that can easily grow as i add more things to it
+
+ i dont know if i will stick to a bookshelf but i dontknow what is the best way to visualize this and stick to my current styel
+
+ please help
+
+
+
+
+
+
+
+ will have a 
+
+
+ - currently reading:
+ - current favorite
+ - want to read:
+
+ - have read:
+
+
+
+OKAY IM still trying to figure out how i want to do this. but please help me given these iease:
+
+ i think on the left side of the screen i want to display what i am curently reading, my favorite book(s)
+ 
+ on te left side i want all the bookselves with what i have read, and what i want to read!!
+ i also just want it to look more like me. i odnt like this style. it's not aesthetically pleasing and it is a bit offputting.  i also dont like the color scheme. make it feel more bOOKSTORE-Y/COFFE SHOP VIBES.
+
+
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Library</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f7f3e9 0%, #f0ebe0 50%, #e8dcc0 100%);
+            color: #2d1810;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grain" patternUnits="userSpaceOnUse" width="60" height="60"><circle cx="30" cy="30" r="1.5" fill="%23d4c5a9" opacity="0.1"/><circle cx="10" cy="10" r="1" fill="%23c9b896" opacity="0.1"/><circle cx="50" cy="20" r="1" fill="%23c9b896" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>') repeat;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 3rem;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: rgba(139, 105, 74, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 105, 74, 0.2);
+            box-shadow: 0 8px 32px rgba(139, 105, 74, 0.15);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .main-content {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 16px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 105, 74, 0.2);
+            box-shadow: 0 8px 32px rgba(139, 105, 74, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-family: 'Crimson Text', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #5d4037;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(93, 64, 55, 0.1);
+        }
+
+        .header p {
+            font-size: 1rem;
+            color: #8d6e63;
+            font-style: italic;
+        }
+
+        .sidebar-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .sidebar-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.4rem;
+            color: #5d4037;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 2px solid #d7ccc8;
+            padding-bottom: 0.5rem;
+        }
+
+        .current-book {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid #8d6e63;
+            box-shadow: 0 4px 12px rgba(139, 105, 74, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .book-cover {
+            width: 80px;
+            height: 120px;
+            background: linear-gradient(135deg, #8d6e63, #6d4c41);
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            box-shadow: 
+                3px 3px 10px rgba(0, 0, 0, 0.2),
+                inset -1px -1px 2px rgba(0, 0, 0, 0.1),
+                inset 1px 1px 2px rgba(255, 255, 255, 0.2);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.7rem;
+            text-align: center;
+            padding: 0.5rem;
+            font-weight: 500;
+        }
+
+        .book-info h3 {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.1rem;
+            color: #5d4037;
+            margin-bottom: 0.25rem;
+        }
+
+        .book-info p {
+            font-size: 0.9rem;
+            color: #8d6e63;
+            margin-bottom: 0.1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #8d6e63, #a1887f);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .bookshelf-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 2rem;
+            color: #5d4037;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 3px solid #d7ccc8;
+            padding-bottom: 0.5rem;
+        }
+
+        .bookshelf {
+            background: linear-gradient(180deg, #8b4513 0%, #654321 100%);
+            border-radius: 12px 12px 8px 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            box-shadow: 
+                0 8px 24px rgba(139, 69, 19, 0.3),
+                inset 0 2px 4px rgba(139, 69, 19, 0.2);
+        }
+
+        .bookshelf::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 0;
+            right: 0;
+            height: 16px;
+            background: linear-gradient(90deg, #a0522d, #8b4513, #a0522d);
+            border-radius: 12px 12px 0 0;
+            box-shadow: 0 -4px 8px rgba(139, 69, 19, 0.2);
+        }
+
+        .bookshelf::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #654321, #5d4037, #654321);
+            border-radius: 0 0 8px 8px;
+        }
+
+        .books-container {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            min-height: 180px;
+            padding-top: 1rem;
+        }
+
+        .book {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: bottom;
+            flex-shrink: 0;
+        }
+
+        .book:hover {
+            transform: translateY(-8px) scale(1.02);
+            z-index: 10;
+        }
+
+        .book-spine {
+            width: 40px;
+            height: var(--book-height, 160px);
+            background: var(--book-color, #8d6e63);
+            border-radius: 4px 4px 2px 2px;
+            position: relative;
+            box-shadow: 
+                2px 0 6px rgba(0, 0, 0, 0.3),
+                inset -1px 0 2px rgba(0, 0, 0, 0.2),
+                inset 1px 0 2px rgba(255, 255, 255, 0.1);
+        }
+
+        .book-spine::before {
+            content: '';
+            position: absolute;
+            right: -2px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, 
+                rgba(0, 0, 0, 0.4), 
+                rgba(0, 0, 0, 0.2), 
+                rgba(0, 0, 0, 0.4));
+            border-radius: 0 2px 2px 0;
+        }
+
+        .book-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            white-space: nowrap;
+            max-width: calc(var(--book-height, 160px) - 30px);
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .book-tooltip {
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(61, 43, 31, 0.95);
+            color: #f5f5f5;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            max-width: 220px;
+            white-space: normal;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 105, 74, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            z-index: 20;
+        }
+
+        .book-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: rgba(61, 43, 31, 0.95);
+        }
+
+        .book:hover .book-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tooltip-title {
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: #fff;
+        }
+
+        .tooltip-author {
+            color: #d7ccc8;
+            font-size: 0.8rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .tooltip-type {
+            color: #bcaaa4;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .add-button {
+            width: 40px;
+            height: 160px;
+            background: rgba(139, 105, 74, 0.3);
+            border: 2px dashed #8d6e63;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .add-button:hover {
+            background: rgba(139, 105, 74, 0.5);
+            border-color: #6d4c41;
+            transform: translateY(-5px);
+        }
+
+        .add-button::before {
+            content: '+';
+            font-size: 1.5rem;
+            color: #8d6e63;
+            font-weight: 300;
+        }
+
+        .favorites-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .favorite-item {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #8d6e63;
+            box-shadow: 0 2px 8px rgba(139, 105, 74, 0.1);
+        }
+
+        .favorite-item h4 {
+            font-family: 'Crimson Text', serif;
+            color: #5d4037;
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .favorite-item p {
+            color: #8d6e63;
+            font-size: 0.85rem;
+        }
+        .back-link {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            z-index: 100;
+            transition: color 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .sidebar {
+                position: static;
+                order: 2;
+            }
+            
+            .main-content {
+                order: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .books-container {
+                justify-content: center;
+            }
+            
+            .book-spine {
+                width: 35px;
+            }
+        }
+
+        /* Book color variations */
+        .vintage-red { --book-color: #8b4b3b; }
+        .forest-green { --book-color: #4a5d23; }
+        .deep-blue { --book-color: #2c3e50; }
+        .golden-brown { --book-color: #b8860b; }
+        .burgundy { --book-color: #722f37; }
+        .navy { --book-color: #1a365d; }
+        .olive { --book-color: #556b2f; }
+        .mahogany { --book-color: #654321; }
+        .teal { --book-color: #2f4f4f; }
+        .crimson { --book-color: #8b0000; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link"> Back to Portfolio</a>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="header">
+                <h1>My Reading Corner</h1>
+                <p>Currently exploring new worlds</p>
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="sidebar-title">
+                    <span>📖</span>
+                    Currently Reading
+                </h2>
+                <div class="current-book">
+                    <div class="book-cover">
+                        I Who Have Never Known Men
+                    </div>
+                    <div class="book-info">
+                        <h3>I Who Have Never Known Men</h3>
+                        <p>Jacqueline Harpman</p>
+                        <p style="font-size: 0.8rem; color: #a1887f;">Literary Fiction</p>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 35%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="sidebar-title">
+                    <span>⭐</span>
+                    All-Time Favorites
+                </h2>
+                <div class="favorites-list">
+                    <div class="favorite-item">
+                        <h4>The Nightingale</h4>
+                        <p>Kristin Hannah</p>
+                    </div>
+                   
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <section class="bookshelf-section">
+                <h2 class="section-title">
+                    <span></span>
+                    Want to Read
+                </h2>
+                <div class="bookshelf">
+                    <div class="books-container" id="want-to-read">
+                        <div class="book vintage-red" style="--book-height: 175px;">
+                            <div class="book-spine">
+                                <div class="book-title">Welcome to the Hyunam-Dong Bookshop</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">Welcome to the Hyunam-Dong Bookshop</div>
+                                <div class="tooltip-author">Hwang Boreum</div>
+                                <div class="tooltip-type">Fiction</div>
+                            </div>
+                        </div>
+                        <div class="book forest-green" style="--book-height: 190px;">
+                            <div class="book-spine">
+                                <div class="book-title">Normal People</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">Normal People</div>
+                                <div class="tooltip-author">Sally Rooney</div>
+                                <div class="tooltip-type">Contemporary Fiction</div>
+                            </div>
+                        </div>
+                        <div class="book deep-blue" style="--book-height: 165px;">
+                            <div class="book-spine">
+                                <div class="book-title">All The Light We Cannot See</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">All The Light We Cannot See</div>
+                                <div class="tooltip-author">Anthony Doerr</div>
+                                <div class="tooltip-type">Historical Fiction</div>
+                            </div>
+                        </div>
+                        <div class="book golden-brown" style="--book-height: 180px;">
+                            <div class="book-spine">
+                                <div class="book-title">Water Moon</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">Water Moon</div>
+                                <div class="tooltip-author"></div>
+                                <div class="tooltip-type"></div>
+                            </div>
+                        </div>
+                        <div class="book golden-brown" style="--book-height: 180px;">
+                            <div class="book-spine">
+                                <div class="book-title">The Girl With 7 Names</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">The Girl With 7 Names</div>
+                                <div class="tooltip-author"></div>
+                                <div class="tooltip-type"></div>
+                            </div>
+                        </div>
+
+                        <div class="book golden-brown" style="--book-height: 180px;">
+                            <div class="book-spine">
+                                <div class="book-title">Bridge of Clay</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">Bridge of Clay</div>
+                                <div class="tooltip-author"></div>
+                                <div class="tooltip-type"></div>
+                            </div>
+                        </div>
+                        <div class="book golden-brown" style="--book-height: 180px;">
+                            <div class="book-spine">
+                                <div class="book-title">Green Lights</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">Green Lights</div>
+                                <div class="tooltip-author"></div>
+                                <div class="tooltip-type"></div>
+                            </div>
+                        </div>
+
+                        <div class="book golden-brown" style="--book-height: 180px;">
+                            <div class="book-spine">
+                                <div class="book-title">Sunrise on the Reaping</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">Sunrise on the Reaping</div>
+                                <div class="tooltip-author"></div>
+                                <div class="tooltip-type"></div>
+                            </div>
+                        </div>
+                        <div class="add-button" onclick="addItem('want-to-read')"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bookshelf-section">
+                <h2 class="section-title">
+                    <span></span>
+                    Have Read
+                </h2>
+                <div class="bookshelf">
+                    
+                    <div class="books-container" id="have-read">
+                        <div class="book navy" style="--book-height: 195px;">
+                            <div class="book-spine">
+                                <div class="book-title">When Breath Becomes Air</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">When Breath Becomes Air</div>
+                                <div class="tooltip-author"></div>
+                                <div class="tooltip-type">Memoir</div>
+                            </div>
+                        </div>
+
+                        <div class="book navy" style="--book-height: 195px;">
+                            <div class="book-spine">
+                                <div class="book-title">A Little Life</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">A Little Life</div>
+                                <div class="tooltip-author"></div>
+                                <div class="tooltip-type"></div>
+                            </div>
+                        </div>
+
+                        <div class="book navy" style="--book-height: 195px;">
+                            <div class="book-spine">
+                                <div class="book-title">Becoming</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">Becoming</div>
+                                <div class="tooltip-author">Michelle Obama</div>
+                                <div class="tooltip-type">Memoir</div>
+                            </div>
+                        </div>
+
+                         <div class="book olive" style="--book-height: 170px;">
+                            <div class="book-spine">
+                                <div class="book-title">I'm Glad My Mom Died</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">I'm Glad My Mom Died</div>
+                                <div class="tooltip-author"></div>
+                                <div class="tooltip-type">Memoir</div>
+                            </div>
+                        </div>
+
+                        <div class="book mahogany" style="--book-height: 185px;">
+                            <div class="book-spine">
+                                <div class="book-title">The 5 People I Meet in Heaven</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">The 5 People I Meet in Heaven</div>
+                                <div class="tooltip-author"></div>
+                                <div class="tooltip-type">Philosophical Fiction</div>
+                            </div>
+                        </div>
+
+
+                        <div class="book teal" style="--book-height: 160px;">
+                            <div class="book-spine">
+                                <div class="book-title">Tomorrow, Tomorrow, and Tomorrow</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">Tomorrow, Tomorrow, and Tomorrow</div>
+                                <div class="tooltip-author"></div>
+                                <div class="tooltip-type"></div>
+                            </div>
+                        </div>
+
+                    
+
+                        <div class="book burgundy" style="--book-height: 180px;">
+                            <div class="book-spine">
+                                <div class="book-title">The Midnight Library</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">The Midnight Library</div>
+                                <div class="tooltip-author">Matt Haig</div>
+                                <div class="tooltip-type">Philosophical Fiction</div>
+                            </div>
+                        </div>
+                        
+                       
+                        
+                        
+                        <div class="book crimson" style="--book-height: 175px;">
+                            <div class="book-spine">
+                                <div class="book-title">Days at the Morasaki Bookshop</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">Days at the Morasaki Bookshop</div>
+                                <div class="tooltip-author"></div>
+                                <div class="tooltip-type"></div>
+                            </div>
+                        </div>
+                        <div class="book crimson" style="--book-height: 175px;">
+                            <div class="book-spine">
+                                <div class="book-title">Nightingale</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">Nightingale</div>
+                                <div class="tooltip-author"></div>
+                                <div class="tooltip-type"></div>
+                            </div>
+                        </div>
+                        <div class="book crimson" style="--book-height: 175px;">
+                            <div class="book-spine">
+                                <div class="book-title">Pachinko</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">Pachinko</div>
+                                <div class="tooltip-author"></div>
+                                <div class="tooltip-type"></div>
+                            </div>
+                        </div>
+
+                        <div class="book crimson" style="--book-height: 175px;">
+                            <div class="book-spine">
+                                <div class="book-title">Dead Poets Society</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">Dead Poets Society</div>
+                                <div class="tooltip-author"></div>
+                                <div class="tooltip-type"></div>
+                            </div>
+                        </div>
+
+                        <div class="book crimson" style="--book-height: 175px;">
+                            <div class="book-spine">
+                                <div class="book-title">Never Grow Up</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">Never Grow Up</div>
+                                <div class="tooltip-author"></div>
+                                <div class="tooltip-type"></div>
+                            </div>
+                        </div>
+                        <div class="add-button" onclick="addItem('have-read')"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function addItem(sectionId) {
+            const title = prompt("Enter the title:");
+            if (!title) return;
+            
+            const author = prompt("Enter the author:");
+            if (!author) return;
+            
+            const genre = prompt("Enter the genre:");
+            if (!genre) return;
+
+            const container = document.getElementById(sectionId);
+            const addButton = container.querySelector('.add-button');
+            
+            const bookElement = document.createElement('div');
+            bookElement.className = 'book';
+            
+            const colors = ['vintage-red', 'forest-green', 'deep-blue', 'golden-brown', 'burgundy', 'navy', 'olive', 'mahogany', 'teal', 'crimson'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            bookElement.classList.add(randomColor);
+            
+            const bookHeight = Math.floor(Math.random() * 50) + 150;
+            bookElement.style.setProperty('--book-height', `${bookHeight}px`);
+            
+            bookElement.innerHTML = `
+                <div class="book-spine">
+                    <div class="book-title">${title.length > 15 ? title.substring(0, 15) + '...' : title}</div>
+                </div>
+                <div class="book-tooltip">
+                    <div class="tooltip-title">${title}</div>
+                    <div class="tooltip-author">${author}</div>
+                    <div class="tooltip-type">${genre}</div>
+                </div>
+            `;
+            
+            container.insertBefore(bookElement, addButton);
+            
+            // Animation
+            bookElement.style.opacity = '0';
+            bookElement.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                bookElement.style.transition = 'all 0.5s ease';
+                bookElement.style.opacity = '1';
+                bookElement.style.transform = 'translateY(0)';
+            }, 100);
+        }
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.sidebar-section, .bookshelf-section');
+            elements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.1}s`;
+                el.classList.add('fade-in');
+            });
+        });
+    </script>
+</body>
+</html>
