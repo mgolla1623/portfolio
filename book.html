@@ -49,9 +49,9 @@ TO DO:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Library</title>
+    <title>My Reading Corner</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         * {
             margin: 0;
@@ -61,215 +61,221 @@ TO DO:
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f7f3e9 0%, #f0ebe0 50%, #e8dcc0 100%);
-            color: #2d1810;
+            background: #f8f9fa;
+            color: #1a1a1a;
             min-height: 100vh;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grain" patternUnits="userSpaceOnUse" width="60" height="60"><circle cx="30" cy="30" r="1.5" fill="%23d4c5a9" opacity="0.1"/><circle cx="10" cy="10" r="1" fill="%23c9b896" opacity="0.1"/><circle cx="50" cy="20" r="1" fill="%23c9b896" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>') repeat;
-            pointer-events: none;
-            z-index: 1;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1600px;
+            margin-top: 5.5rem; /* Add top margin to prevent overlap with back-link */
+            max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
-            position: relative;
-            z-index: 2;
             display: grid;
-            grid-template-columns: 350px 1fr;
+            grid-template-columns: 320px 1fr;
             gap: 3rem;
             min-height: 100vh;
+            align-items: flex-start; /* Align sidebar and main content to the top */
         }
 
         .sidebar {
-            background: rgba(139, 105, 74, 0.1);
+            background: white;
             border-radius: 16px;
             padding: 2rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(139, 105, 74, 0.2);
-            box-shadow: 0 8px 32px rgba(139, 105, 74, 0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9ecef;
             height: fit-content;
             position: sticky;
-            top: 2rem;
+            top: 5.5rem; /* Match container margin-top for perfect alignment */
         }
 
         .main-content {
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 16px;
-            padding: 2.5rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(139, 105, 74, 0.2);
-            box-shadow: 0 8px 32px rgba(139, 105, 74, 0.1);
+            
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 3.5rem; /* Remove extra margin so top aligns with sidebar */
+        }
+
+        .back-link {
+            position: absolute;
+            top: 24px;
+            left: 32px;
+            color: #6c757d;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            z-index: 100;
+            transition: color 0.3s ease;
+            background: rgba(255,255,255,0.85);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .back-link:hover {
+            color: #495057;
         }
 
         .header {
-            text-align: center;
+            text-align: left;
             margin-bottom: 2rem;
         }
 
         .header h1 {
-            font-family: 'Crimson Text', serif;
-            font-size: 2.5rem;
+            font-size: 1.5rem;
             font-weight: 600;
-            color: #5d4037;
+            color: #1a1a1a;
             margin-bottom: 0.5rem;
-            text-shadow: 0 2px 4px rgba(93, 64, 55, 0.1);
         }
 
         .header p {
-            font-size: 1rem;
-            color: #8d6e63;
+            font-size: 0.9rem;
+            color: #6c757d;
             font-style: italic;
         }
 
         .sidebar-section {
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
         }
 
         .sidebar-title {
-            font-family: 'Crimson Text', serif;
-            font-size: 1.4rem;
-            color: #5d4037;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a1a1a;
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border-bottom: 2px solid #d7ccc8;
             padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e9ecef;
         }
 
         .current-book {
-            background: rgba(255, 255, 255, 0.6);
+            background: #f8f9fa;
             border-radius: 12px;
             padding: 1.5rem;
-            border-left: 4px solid #8d6e63;
-            box-shadow: 0 4px 12px rgba(139, 105, 74, 0.1);
-            margin-bottom: 1rem;
+            border: 1px solid #e9ecef;
         }
 
-        .book-cover {
-            width: 80px;
-            height: 120px;
-            background: linear-gradient(135deg, #8d6e63, #6d4c41);
+        .book-cover-small {
+            width: 60px;
+            height: 90px;
+            background: #495057;
             border-radius: 4px;
             margin-bottom: 1rem;
-            box-shadow: 
-                3px 3px 10px rgba(0, 0, 0, 0.2),
-                inset -1px -1px 2px rgba(0, 0, 0, 0.1),
-                inset 1px 1px 2px rgba(255, 255, 255, 0.2);
-            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             text-align: center;
             padding: 0.5rem;
             font-weight: 500;
         }
 
         .book-info h3 {
-            font-family: 'Crimson Text', serif;
-            font-size: 1.1rem;
-            color: #5d4037;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1a1a1a;
             margin-bottom: 0.25rem;
         }
 
         .book-info p {
-            font-size: 0.9rem;
-            color: #8d6e63;
+            font-size: 0.85rem;
+            color: #6c757d;
             margin-bottom: 0.1rem;
         }
 
         .progress-bar {
             width: 100%;
             height: 4px;
-            background: #e0e0e0;
+            background: #e9ecef;
             border-radius: 2px;
-            margin-top: 0.5rem;
+            margin-top: 0.75rem;
             overflow: hidden;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #8d6e63, #a1887f);
+            background: #495057;
             border-radius: 2px;
             transition: width 0.3s ease;
         }
 
-        .bookshelf-section {
-            margin-bottom: 3rem;
+        .favorites-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .favorite-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .favorite-item h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0.25rem;
+        }
+
+        .favorite-item p {
+            color: #6c757d;
+            font-size: 0.8rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9ecef;
         }
 
         .section-title {
-            font-family: 'Crimson Text', serif;
-            font-size: 2rem;
-            color: #5d4037;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1a1a1a;
             margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border-bottom: 3px solid #d7ccc8;
-            padding-bottom: 0.5rem;
         }
 
         .bookshelf {
-            background: linear-gradient(180deg, #8b4513 0%, #654321 100%);
-            border-radius: 12px 12px 8px 8px;
+            background: linear-gradient(135deg, #4a5568, #2d3748);
+            border-radius: 12px;
             padding: 2rem;
-            margin-bottom: 2rem;
             position: relative;
-            box-shadow: 
-                0 8px 24px rgba(139, 69, 19, 0.3),
-                inset 0 2px 4px rgba(139, 69, 19, 0.2);
+            box-shadow: 0 8px 24px rgba(45, 55, 72, 0.2);
+            z-index: 1;
+            overflow: visible;
         }
 
         .bookshelf::before {
             content: '';
             position: absolute;
-            top: -8px;
-            left: 0;
-            right: 0;
-            height: 16px;
-            background: linear-gradient(90deg, #a0522d, #8b4513, #a0522d);
-            border-radius: 12px 12px 0 0;
-            box-shadow: 0 -4px 8px rgba(139, 69, 19, 0.2);
-        }
-
-        .bookshelf::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
+            top: 0;
             left: 0;
             right: 0;
             height: 8px;
-            background: linear-gradient(90deg, #654321, #5d4037, #654321);
-            border-radius: 0 0 8px 8px;
+            background: linear-gradient(90deg, #2d3748, #4a5568, #2d3748);
+            border-radius: 12px 12px 0 0;
         }
 
         .books-container {
             display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
+            gap: 2px;
             align-items: flex-end;
-            min-height: 180px;
-            padding-top: 1rem;
+            min-height: 200px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
         }
 
         .book {
             position: relative;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             transform-origin: bottom;
             flex-shrink: 0;
         }
@@ -280,13 +286,13 @@ TO DO:
         }
 
         .book-spine {
-            width: 40px;
-            height: var(--book-height, 160px);
-            background: var(--book-color, #8d6e63);
-            border-radius: 4px 4px 2px 2px;
+            width: 45px;
+            height: var(--book-height, 180px);
+            background: var(--book-color, #495057);
+            border-radius: 3px 3px 1px 1px;
             position: relative;
             box-shadow: 
-                2px 0 6px rgba(0, 0, 0, 0.3),
+                2px 0 8px rgba(0, 0, 0, 0.3),
                 inset -1px 0 2px rgba(0, 0, 0, 0.2),
                 inset 1px 0 2px rgba(255, 255, 255, 0.1);
         }
@@ -294,15 +300,11 @@ TO DO:
         .book-spine::before {
             content: '';
             position: absolute;
-            right: -2px;
+            right: -1px;
             top: 0;
             bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, 
-                rgba(0, 0, 0, 0.4), 
-                rgba(0, 0, 0, 0.2), 
-                rgba(0, 0, 0, 0.4));
-            border-radius: 0 2px 2px 0;
+            width: 1px;
+            background: rgba(0, 0, 0, 0.4);
         }
 
         .book-title {
@@ -313,9 +315,9 @@ TO DO:
             font-size: 0.7rem;
             font-weight: 500;
             color: white;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
             white-space: nowrap;
-            max-width: calc(var(--book-height, 160px) - 30px);
+            max-width: calc(var(--book-height, 180px) - 40px);
             overflow: hidden;
             text-overflow: ellipsis;
         }
@@ -325,8 +327,8 @@ TO DO:
             bottom: 120%;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(61, 43, 31, 0.95);
-            color: #f5f5f5;
+            background: rgba(26, 26, 26, 0.95);
+            color: white;
             padding: 1rem;
             border-radius: 8px;
             font-size: 0.85rem;
@@ -336,9 +338,9 @@ TO DO:
             visibility: hidden;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(139, 105, 74, 0.3);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            z-index: 20;
+            z-index: 999;
+            right: auto;
         }
 
         .book-tooltip::after {
@@ -348,7 +350,7 @@ TO DO:
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
-            border-top-color: rgba(61, 43, 31, 0.95);
+            border-top-color: rgba(26, 26, 26, 0.95);
         }
 
         .book:hover .book-tooltip {
@@ -359,100 +361,201 @@ TO DO:
         .tooltip-title {
             font-weight: 600;
             margin-bottom: 0.4rem;
-            color: #fff;
         }
 
         .tooltip-author {
-            color: #d7ccc8;
+            color: #adb5bd;
             font-size: 0.8rem;
             margin-bottom: 0.2rem;
         }
 
         .tooltip-type {
-            color: #bcaaa4;
+            color: #6c757d;
             font-size: 0.75rem;
             text-transform: uppercase;
             font-weight: 500;
         }
 
-        .add-button {
-            width: 40px;
-            height: 160px;
-            background: rgba(139, 105, 74, 0.3);
-            border: 2px dashed #8d6e63;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .recommendations-section {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .recommend-button {
+            background: #495057;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
-            flex-shrink: 0;
+            margin-bottom: 0.5rem;
         }
 
-        .add-button:hover {
-            background: rgba(139, 105, 74, 0.5);
-            border-color: #6d4c41;
-            transform: translateY(-5px);
+        .recommend-button:hover {
+            background: #343a40;
+            transform: translateY(-1px);
         }
 
-        .add-button::before {
-            content: '+';
-            font-size: 1.5rem;
-            color: #8d6e63;
-            font-weight: 300;
+        .recommendations-subtitle {
+            font-size: 0.85rem;
+            color: #6c757d;
+            font-style: italic;
         }
 
-        .favorites-list {
+        /* Enhanced Recommendation Form Styles */
+        .recommendation-form-container {
+            margin-bottom: 1rem;
+        }
+
+        .recommendation-form {
+            margin-bottom: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .form-card {
+            background: rgba(248, 250, 252, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e293b;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-family: 'Inter', serif;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
         }
 
-        .favorite-item {
-            background: rgba(255, 255, 255, 0.6);
-            padding: 1rem;
-            border-radius: 8px;
-            border-left: 3px solid #8d6e63;
-            box-shadow: 0 2px 8px rgba(139, 105, 74, 0.1);
-        }
-
-        .favorite-item h4 {
-            font-family: 'Crimson Text', serif;
-            color: #5d4037;
+        .form-group label {
+            font-size: 0.875rem;
+            color: #475569;
             margin-bottom: 0.25rem;
-            font-size: 1rem;
-        }
-
-        .favorite-item p {
-            color: #8d6e63;
-            font-size: 0.85rem;
-        }
-        .back-link {
-            position: fixed;
-            top: 30px;
-            left: 30px;
-            color: #666;
-            text-decoration: none;
             font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 0.75rem;
             font-size: 0.9rem;
-            z-index: 100;
-            transition: color 0.3s ease;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #475569;
+            box-shadow: 0 0 0 3px rgba(71, 85, 105, 0.1);
+        }
+
+        .form-group textarea {
+            resize: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        .cancel-button,
+        .submit-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .cancel-button {
+            background: white;
+            border: 1px solid #cbd5e1;
+            color: #64748b;
+        }
+
+        .cancel-button:hover {
+            background: #f1f5f9;
+        }
+
+        .submit-button {
+            background: #475569;
+            color: white;
+        }
+
+        .submit-button:hover {
+            background: #334155;
+            transform: translateY(-1px);
+        }
+
+        .tooltip-recommended {
+            color: #94a3b8;
+            font-size: 0.75rem;
+            margin-bottom: 0.25rem;
+            font-style: italic;
+        }
+
+        .tooltip-reason {
+            color: #cbd5e1;
+            font-size: 0.7rem;
+            font-style: italic;
+            line-height: 1.3;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            
+            .form-buttons {
+                flex-direction: column;
+            }
+            
+            .cancel-button,
+            .submit-button {
+                width: 100%;
             }
         }
 
-        .fade-in {
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
+        /* Book color variations */
+        .vintage-red { --book-color: #8b4b3b; }
+        .forest-green { --book-color: #4a5d23; }
+        .deep-blue { --book-color: #2c3e50; }
+        .golden-brown { --book-color: #b8860b; }
+        .burgundy { --book-color: #722f37; }
+        .navy { --book-color: #1a365d; }
+        .olive { --book-color: #556b2f; }
+        .mahogany { --book-color: #654321; }
+        .teal { --book-color: #2f4f4f; }
+        .crimson { --book-color: #8b0000; }
 
         @media (max-width: 1200px) {
             .container {
@@ -472,11 +575,8 @@ TO DO:
 
         @media (max-width: 768px) {
             .container {
+                margin-top: 3.5rem;
                 padding: 1rem;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
             }
             
             .books-container {
@@ -484,25 +584,22 @@ TO DO:
             }
             
             .book-spine {
-                width: 35px;
+                width: 40px;
             }
         }
 
-        /* Book color variations */
-        .vintage-red { --book-color: #8b4b3b; }
-        .forest-green { --book-color: #4a5d23; }
-        .deep-blue { --book-color: #2c3e50; }
-        .golden-brown { --book-color: #b8860b; }
-        .burgundy { --book-color: #722f37; }
-        .navy { --book-color: #1a365d; }
-        .olive { --book-color: #556b2f; }
-        .mahogany { --book-color: #654321; }
-        .teal { --book-color: #2f4f4f; }
-        .crimson { --book-color: #8b0000; }
+        @media (max-width: 600px) {
+            .book-tooltip {
+                left: 50vw;
+                transform: translateX(-50vw);
+                max-width: 90vw;
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-link"> Back to Portfolio</a>
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
 
     <div class="container">
         <aside class="sidebar">
@@ -512,18 +609,15 @@ TO DO:
             </div>
 
             <div class="sidebar-section">
-                <h2 class="sidebar-title">
-                    <span>📖</span>
-                    Currently Reading
-                </h2>
+                <h2 class="sidebar-title">Currently Reading</h2>
                 <div class="current-book">
-                    <div class="book-cover">
+                    <div class="book-cover-small">
                         I Who Have Never Known Men
                     </div>
                     <div class="book-info">
                         <h3>I Who Have Never Known Men</h3>
                         <p>Jacqueline Harpman</p>
-                        <p style="font-size: 0.8rem; color: #a1887f;">Literary Fiction</p>
+                        <p style="font-size: 0.8rem; color: #6c757d;">Literary Fiction</p>
                     </div>
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: 35%;"></div>
@@ -532,31 +626,25 @@ TO DO:
             </div>
 
             <div class="sidebar-section">
-                <h2 class="sidebar-title">
-                    <span>⭐</span>
-                    All-Time Favorites
-                </h2>
+                <h2 class="sidebar-title">All-Time Favorites</h2>
                 <div class="favorites-list">
                     <div class="favorite-item">
                         <h4>The Nightingale</h4>
                         <p>Kristin Hannah</p>
                     </div>
-                   
+                 
                 </div>
             </div>
         </aside>
 
         <main class="main-content">
-            <section class="bookshelf-section">
-                <h2 class="section-title">
-                    <span></span>
-                    Want to Read
-                </h2>
+            <section class="section">
+                <h2 class="section-title">Want to Read</h2>
                 <div class="bookshelf">
                     <div class="books-container" id="want-to-read">
                         <div class="book vintage-red" style="--book-height: 175px;">
                             <div class="book-spine">
-                                <div class="book-title">Welcome to the Hyunam-Dong Bookshop</div>
+                                <div class="book-title">Welcome to the H...</div>
                             </div>
                             <div class="book-tooltip">
                                 <div class="tooltip-title">Welcome to the Hyunam-Dong Bookshop</div>
@@ -576,7 +664,7 @@ TO DO:
                         </div>
                         <div class="book deep-blue" style="--book-height: 165px;">
                             <div class="book-spine">
-                                <div class="book-title">All The Light We Cannot See</div>
+                                <div class="book-title">All The Light We...</div>
                             </div>
                             <div class="book-tooltip">
                                 <div class="tooltip-title">All The Light We Cannot See</div>
@@ -590,88 +678,79 @@ TO DO:
                             </div>
                             <div class="book-tooltip">
                                 <div class="tooltip-title">Water Moon</div>
-                                <div class="tooltip-author"></div>
-                                <div class="tooltip-type"></div>
+                                <div class="tooltip-author">Samantha Shannon</div>
+                                <div class="tooltip-type">Fantasy</div>
                             </div>
                         </div>
-                        <div class="book golden-brown" style="--book-height: 180px;">
+                        <div class="book burgundy" style="--book-height: 185px;">
                             <div class="book-spine">
-                                <div class="book-title">The Girl With 7 Names</div>
+                                <div class="book-title">The Girl With 7...</div>
                             </div>
                             <div class="book-tooltip">
                                 <div class="tooltip-title">The Girl With 7 Names</div>
-                                <div class="tooltip-author"></div>
-                                <div class="tooltip-type"></div>
+                                <div class="tooltip-author">Hyeonseo Lee</div>
+                                <div class="tooltip-type">Memoir</div>
                             </div>
                         </div>
-
-                        <div class="book golden-brown" style="--book-height: 180px;">
+                        <div class="book navy" style="--book-height: 170px;">
                             <div class="book-spine">
                                 <div class="book-title">Bridge of Clay</div>
                             </div>
                             <div class="book-tooltip">
                                 <div class="tooltip-title">Bridge of Clay</div>
-                                <div class="tooltip-author"></div>
-                                <div class="tooltip-type"></div>
+                                <div class="tooltip-author">Markus Zusak</div>
+                                <div class="tooltip-type">Literary Fiction</div>
                             </div>
                         </div>
-                        <div class="book golden-brown" style="--book-height: 180px;">
+                        <div class="book olive" style="--book-height: 180px;">
                             <div class="book-spine">
                                 <div class="book-title">Green Lights</div>
                             </div>
                             <div class="book-tooltip">
                                 <div class="tooltip-title">Green Lights</div>
-                                <div class="tooltip-author"></div>
-                                <div class="tooltip-type"></div>
+                                <div class="tooltip-author">Matthew McConaughey</div>
+                                <div class="tooltip-type">Memoir</div>
                             </div>
                         </div>
-
-                        <div class="book golden-brown" style="--book-height: 180px;">
+                        <div class="book mahogany" style="--book-height: 175px;">
                             <div class="book-spine">
-                                <div class="book-title">Sunrise on the Reaping</div>
+                                <div class="book-title">Sunrise on the...</div>
                             </div>
                             <div class="book-tooltip">
                                 <div class="tooltip-title">Sunrise on the Reaping</div>
-                                <div class="tooltip-author"></div>
-                                <div class="tooltip-type"></div>
+                                <div class="tooltip-author">Suzanne Collins</div>
+                                <div class="tooltip-type">Dystopian Fiction</div>
                             </div>
                         </div>
-                        <div class="add-button" onclick="addItem('want-to-read')"></div>
                     </div>
                 </div>
             </section>
 
-            <section class="bookshelf-section">
-                <h2 class="section-title">
-                    <span></span>
-                    Have Read
-                </h2>
+            <section class="section">
+                <h2 class="section-title">Have Read</h2>
                 <div class="bookshelf">
-                    
                     <div class="books-container" id="have-read">
                         <div class="book navy" style="--book-height: 195px;">
                             <div class="book-spine">
-                                <div class="book-title">When Breath Becomes Air</div>
+                                <div class="book-title">When Breath Bec...</div>
                             </div>
                             <div class="book-tooltip">
                                 <div class="tooltip-title">When Breath Becomes Air</div>
-                                <div class="tooltip-author"></div>
+                                <div class="tooltip-author">Paul Kalanithi</div>
                                 <div class="tooltip-type">Memoir</div>
                             </div>
                         </div>
-
-                        <div class="book navy" style="--book-height: 195px;">
+                        <div class="book deep-blue" style="--book-height: 185px;">
                             <div class="book-spine">
                                 <div class="book-title">A Little Life</div>
                             </div>
                             <div class="book-tooltip">
                                 <div class="tooltip-title">A Little Life</div>
-                                <div class="tooltip-author"></div>
-                                <div class="tooltip-type"></div>
+                                <div class="tooltip-author">Hanya Yanagihara</div>
+                                <div class="tooltip-type">Literary Fiction</div>
                             </div>
                         </div>
-
-                        <div class="book navy" style="--book-height: 195px;">
+                        <div class="book forest-green" style="--book-height: 190px;">
                             <div class="book-spine">
                                 <div class="book-title">Becoming</div>
                             </div>
@@ -681,46 +760,39 @@ TO DO:
                                 <div class="tooltip-type">Memoir</div>
                             </div>
                         </div>
-
-                         <div class="book olive" style="--book-height: 170px;">
+                        <div class="book olive" style="--book-height: 170px;">
                             <div class="book-spine">
-                                <div class="book-title">I'm Glad My Mom Died</div>
+                                <div class="book-title">I'm Glad My Mom...</div>
                             </div>
                             <div class="book-tooltip">
                                 <div class="tooltip-title">I'm Glad My Mom Died</div>
-                                <div class="tooltip-author"></div>
+                                <div class="tooltip-author">Jennette McCurdy</div>
                                 <div class="tooltip-type">Memoir</div>
                             </div>
                         </div>
-
                         <div class="book mahogany" style="--book-height: 185px;">
                             <div class="book-spine">
-                                <div class="book-title">The 5 People I Meet in Heaven</div>
+                                <div class="book-title">The 5 People I...</div>
                             </div>
                             <div class="book-tooltip">
                                 <div class="tooltip-title">The 5 People I Meet in Heaven</div>
-                                <div class="tooltip-author"></div>
+                                <div class="tooltip-author">Mitch Albom</div>
                                 <div class="tooltip-type">Philosophical Fiction</div>
                             </div>
                         </div>
-
-
                         <div class="book teal" style="--book-height: 160px;">
                             <div class="book-spine">
-                                <div class="book-title">Tomorrow, Tomorrow, and Tomorrow</div>
+                                <div class="book-title">Tomorrow, Tomo...</div>
                             </div>
                             <div class="book-tooltip">
                                 <div class="tooltip-title">Tomorrow, Tomorrow, and Tomorrow</div>
-                                <div class="tooltip-author"></div>
-                                <div class="tooltip-type"></div>
+                                <div class="tooltip-author">Gabrielle Zevin</div>
+                                <div class="tooltip-type">Literary Fiction</div>
                             </div>
                         </div>
-
-                    
-
                         <div class="book burgundy" style="--book-height: 180px;">
                             <div class="book-spine">
-                                <div class="book-title">The Midnight Library</div>
+                                <div class="book-title">The Midnight L...</div>
                             </div>
                             <div class="book-tooltip">
                                 <div class="tooltip-title">The Midnight Library</div>
@@ -728,63 +800,139 @@ TO DO:
                                 <div class="tooltip-type">Philosophical Fiction</div>
                             </div>
                         </div>
-                        
-                       
-                        
-                        
                         <div class="book crimson" style="--book-height: 175px;">
                             <div class="book-spine">
-                                <div class="book-title">Days at the Morasaki Bookshop</div>
+                                <div class="book-title">Days at the Mor...</div>
                             </div>
                             <div class="book-tooltip">
-                                <div class="tooltip-title">Days at the Morasaki Bookshop</div>
-                                <div class="tooltip-author"></div>
-                                <div class="tooltip-type"></div>
+                                <div class="tooltip-title">Days at the Morisaki Bookshop</div>
+                                <div class="tooltip-author">Satoshi Yagisawa</div>
+                                <div class="tooltip-type">Literary Fiction</div>
                             </div>
                         </div>
-                        <div class="book crimson" style="--book-height: 175px;">
+                        <div class="book vintage-red" style="--book-height: 195px;">
                             <div class="book-spine">
                                 <div class="book-title">Nightingale</div>
                             </div>
                             <div class="book-tooltip">
-                                <div class="tooltip-title">Nightingale</div>
-                                <div class="tooltip-author"></div>
-                                <div class="tooltip-type"></div>
+                                <div class="tooltip-title">The Nightingale</div>
+                                <div class="tooltip-author">Kristin Hannah</div>
+                                <div class="tooltip-type">Historical Fiction</div>
                             </div>
                         </div>
-                        <div class="book crimson" style="--book-height: 175px;">
+                        <div class="book golden-brown" style="--book-height: 180px;">
                             <div class="book-spine">
                                 <div class="book-title">Pachinko</div>
                             </div>
                             <div class="book-tooltip">
                                 <div class="tooltip-title">Pachinko</div>
-                                <div class="tooltip-author"></div>
-                                <div class="tooltip-type"></div>
+                                <div class="tooltip-author">Min Jin Lee</div>
+                                <div class="tooltip-type">Historical Fiction</div>
                             </div>
                         </div>
-
-                        <div class="book crimson" style="--book-height: 175px;">
+                        <div class="book navy" style="--book-height: 170px;">
                             <div class="book-spine">
-                                <div class="book-title">Dead Poets Society</div>
+                                <div class="book-title">Dead Poets Soc...</div>
                             </div>
                             <div class="book-tooltip">
                                 <div class="tooltip-title">Dead Poets Society</div>
-                                <div class="tooltip-author"></div>
-                                <div class="tooltip-type"></div>
+                                <div class="tooltip-author">N.H. Kleinbaum</div>
+                                <div class="tooltip-type">Fiction</div>
                             </div>
                         </div>
-
-                        <div class="book crimson" style="--book-height: 175px;">
+                        <div class="book deep-blue" style="--book-height: 165px;">
                             <div class="book-spine">
                                 <div class="book-title">Never Grow Up</div>
                             </div>
                             <div class="book-tooltip">
                                 <div class="tooltip-title">Never Grow Up</div>
-                                <div class="tooltip-author"></div>
-                                <div class="tooltip-type"></div>
+                                <div class="tooltip-author">Jackie Chan</div>
+                                <div class="tooltip-type">Memoir</div>
                             </div>
                         </div>
-                        <div class="add-button" onclick="addItem('have-read')"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Recommend a book! </h2>
+                
+               
+
+                <div class="bookshelf">
+                    <div class="books-container" id="recommendations">
+                        <!-- <div class="book vintage-red" style="--book-height: 180px;">
+                            <div class="book-spine">
+                                <div class="book-title">The Thursday M...</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">The Thursday Murder Club</div>
+                                <div class="tooltip-author">Richard Osman</div>
+                                <div class="tooltip-type">Mystery</div>
+                                <div class="tooltip-recommended">Recommended by: Sarah M.</div>
+                                <div class="tooltip-reason">"A delightful mystery that proves age is just a number when it comes to solving crimes!"</div>
+                            </div>
+                        </div>
+                        <div class="book forest-green" style="--book-height: 170px;">
+                            <div class="book-spine">
+                                <div class="book-title">Atomic Habits</div>
+                            </div>
+                            <div class="book-tooltip">
+                                <div class="tooltip-title">Atomic Habits</div>
+                                <div class="tooltip-author">James Clear</div>
+                                <div class="tooltip-type">Self-Help</div>
+                                <div class="tooltip-recommended">Recommended by: Michael K.</div>
+                                <div class="tooltip-reason">"Changed how I approach building better habits in small, manageable steps."</div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+
+                 <!-- Recommendation Form -->
+                <div class="recommendation-form-container" id="form-container">
+                    <div class="recommendations-section" id="form-toggle">
+                        <button class="recommend-button" onclick="showRecommendationForm()">
+                            Recommend a Book
+                        </button>
+                    </div>
+                    
+                    <div class="recommendation-form hidden" id="recommendation-form">
+                        <div class="form-card">
+                            <h3 class="form-title">Share Your Book Recommendation</h3>
+                            <form id="book-form" onsubmit="handleFormSubmit(event)">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="book-title">Book Title *</label>
+                                        <input type="text" id="book-title" name="title" placeholder="The Midnight Library" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="book-author">Author *</label>
+                                        <input type="text" id="book-author" name="author" placeholder="Matt Haig" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="book-genre">Genre</label>
+                                        <input type="text" id="book-genre" name="genre" placeholder="Philosophical Fiction">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="recommender-name">Your Name *</label>
+                                        <input type="text" id="recommender-name" name="recommendedBy" placeholder="Anonymous Reader" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="book-reason">Why do you recommend this book?</label>
+                                    <textarea id="book-reason" name="reason" rows="3" placeholder="This book completely changed how I think about life choices and parallel universes..."></textarea>
+                                </div>
+                                
+                                <div class="form-buttons">
+                                    <button type="button" class="cancel-button" onclick="hideRecommendationForm()">Cancel</button>
+                                    <button type="submit" class="submit-button">Add to Shelf</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -792,41 +940,79 @@ TO DO:
     </div>
 
     <script>
-        function addItem(sectionId) {
-            const title = prompt("Enter the title:");
-            if (!title) return;
-            
-            const author = prompt("Enter the author:");
-            if (!author) return;
-            
-            const genre = prompt("Enter the genre:");
-            if (!genre) return;
+        const bookColors = [
+            '#8b4b3b', '#4a5d23', '#2c3e50', '#b8860b', '#722f37', 
+            '#1a365d', '#556b2f', '#654321', '#2f4f4f', '#8b0000'
+        ];
 
-            const container = document.getElementById(sectionId);
-            const addButton = container.querySelector('.add-button');
+        function showRecommendationForm() {
+            document.getElementById('form-toggle').classList.add('hidden');
+            document.getElementById('recommendation-form').classList.remove('hidden');
+        }
+
+        function hideRecommendationForm() {
+            document.getElementById('form-toggle').classList.remove('hidden');
+            document.getElementById('recommendation-form').classList.add('hidden');
+            document.getElementById('book-form').reset();
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const recommendation = {
+                title: formData.get('title'),
+                author: formData.get('author'),
+                genre: formData.get('genre') || 'Fiction',
+                reason: formData.get('reason') || '',
+                recommendedBy: formData.get('recommendedBy'),
+                color: bookColors[Math.floor(Math.random() * bookColors.length)],
+                height: Math.floor(Math.random() * 50) + 150
+            };
+
+            if (!recommendation.title || !recommendation.author || !recommendation.recommendedBy) {
+                alert('Please fill in all required fields (Title, Author, Your Name)');
+                return;
+            }
+
+            addRecommendationToShelf(recommendation);
+            hideRecommendationForm();
+        }
+
+        function addRecommendationToShelf(recommendation) {
+            const container = document.getElementById('recommendations');
             
             const bookElement = document.createElement('div');
             bookElement.className = 'book';
             
-            const colors = ['vintage-red', 'forest-green', 'deep-blue', 'golden-brown', 'burgundy', 'navy', 'olive', 'mahogany', 'teal', 'crimson'];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            bookElement.classList.add(randomColor);
+            // Apply random color class
+            const colorClasses = ['vintage-red', 'forest-green', 'deep-blue', 'golden-brown', 'burgundy', 'navy', 'olive', 'mahogany', 'teal', 'crimson'];
+            const randomColorClass = colorClasses[Math.floor(Math.random() * colorClasses.length)];
+            bookElement.classList.add(randomColorClass);
             
-            const bookHeight = Math.floor(Math.random() * 50) + 150;
-            bookElement.style.setProperty('--book-height', `${bookHeight}px`);
+            bookElement.style.setProperty('--book-height', `${recommendation.height}px`);
+            
+            const truncatedTitle = recommendation.title.length > 12 ? 
+                recommendation.title.substring(0, 12) + '...' : 
+                recommendation.title;
+            
+            const reasonSection = recommendation.reason ? 
+                `<div class="tooltip-reason">"${recommendation.reason}"</div>` : '';
             
             bookElement.innerHTML = `
                 <div class="book-spine">
-                    <div class="book-title">${title.length > 15 ? title.substring(0, 15) + '...' : title}</div>
+                    <div class="book-title">${truncatedTitle}</div>
                 </div>
                 <div class="book-tooltip">
-                    <div class="tooltip-title">${title}</div>
-                    <div class="tooltip-author">${author}</div>
-                    <div class="tooltip-type">${genre}</div>
+                    <div class="tooltip-title">${recommendation.title}</div>
+                    <div class="tooltip-author">${recommendation.author}</div>
+                    <div class="tooltip-type">${recommendation.genre}</div>
+                    <div class="tooltip-recommended">Recommended by: ${recommendation.recommendedBy}</div>
+                    ${reasonSection}
                 </div>
             `;
             
-            container.insertBefore(bookElement, addButton);
+            container.appendChild(bookElement);
             
             // Animation
             bookElement.style.opacity = '0';
@@ -838,13 +1024,9 @@ TO DO:
             }, 100);
         }
 
-        // Initialize animations
+        // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
-            const elements = document.querySelectorAll('.sidebar-section, .bookshelf-section');
-            elements.forEach((el, index) => {
-                el.style.animationDelay = `${index * 0.1}s`;
-                el.classList.add('fade-in');
-            });
+            console.log('Reading Corner loaded successfully');
         });
     </script>
 </body>
