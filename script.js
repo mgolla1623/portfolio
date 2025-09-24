@@ -139,6 +139,7 @@ experience - make it so it's intuitive to click on each one and when it's clicke
 i  also want a space to add the logo for the images!!
 
 
+
 i kind of what to list projects a bit differentely as well. like more CLEAN and miminal. 
 similar to experience section where if u click on the square, it will expand the block into what it currently looks like. (immage+title -click-> image+tite+descriptions+techlinks)
 

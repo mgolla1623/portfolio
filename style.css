@@ -604,10 +604,12 @@ body {
    PROJECTS SECTION STYLES
    =================================== */
 .projects-grid {
-  padding-top: 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 2rem;
   margin-bottom: 2rem;
 }
 
@@ -623,18 +625,21 @@ body {
   flex-direction: column;
   position: relative;
   min-height: 180px;
+  width: 100%;
+  max-width: 350px;
+  flex: 1 1 320px;
+  align-self: flex-start;
 }
 
 .project-card .project-content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s;
-  padding: 0 1rem;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0 1.2rem;
 }
 
 .project-card.expanded .project-content {
   max-height: 500px;
-  padding: 1.1rem 1rem 1rem 1rem;
 }
 
 .project-header {
@@ -651,15 +656,17 @@ body {
   color: #111;
   font-family: 'Sora', sans-serif;
   letter-spacing: 0.2px;
-  margin: 0.7rem 1rem 0.2rem 1rem;
+  margin: 0.7rem 1.2rem 0.2rem 1.2rem;
   text-align: left;
 }
 
 .project-links {
   display: flex;
-  gap: 0.7rem;
-  margin: 0.2rem 1rem 0.7rem 1rem;
+  gap: 1rem;
   align-items: center;
+  justify-content: flex-start;
+  margin: 0 1.2rem 0.7rem 1.2rem;
+  padding: 0;
 }
 
 .project-dropdown-arrow {
@@ -723,6 +730,8 @@ body {
   margin-bottom: 0.7rem;
   line-height: 1.5;
   font-size: 0.98rem;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .project-tech {
@@ -730,6 +739,8 @@ body {
   flex-wrap: wrap;
   gap: 0.4rem;
   margin-bottom: 0.7rem;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .tech-tag {
@@ -745,10 +756,17 @@ body {
 }
 
 @media (max-width: 900px) {
-  .project-image {
-    height: 140px;
+  .projects-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .project-card {
+    max-width: 100%;
+    min-width: 0;
+    width: 100%;
   }
 }
+
 @media (max-width: 600px) {
   .project-image {
     height: 110px;
